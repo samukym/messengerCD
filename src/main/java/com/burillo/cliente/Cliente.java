@@ -7,17 +7,20 @@ package com.burillo.cliente;
 
 import java.rmi.Naming;
 import com.samuel.servidor.*;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author samu
  */
 public class Cliente {
-            /*String registryURL = "rmi://localhost:4444/messenger";        
+     public void main() throws RemoteException, MalformedURLException, NotBoundException{
+         
+            String registryURL = "rmi://localhost:4444/messenger";        
             ServerImpl h = (CallbackServerInterface) Naming.lookup(registryURL);
             ClienteInterface callbackObj = new ClienteImpl();
-            h.registerForCallback(callbackObj);*/
-            VLogin login = new VLogin();
-            login.setVisible(true);
-            login.setLocationRelativeTo(null);
+            h.registerForCallback(callbackObj);
+     }       
 }

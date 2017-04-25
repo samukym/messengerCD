@@ -9,6 +9,6 @@ package com.burillo.cliente;
  *
  * @author iburillo
  */
-public class ClienteInterface {
+public interface ClienteInterface {
     
 }

@@ -9,10 +9,10 @@ package com.burillo.cliente;
  *
  * @author iburillo
  */
-public class ClienteImpl {
+public class ClienteImpl implements ClienteInterface{
 
-    ClienteImpl() {
+    public ClienteImpl() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
