@@ -16,14 +16,14 @@ import java.util.ArrayList;
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
     private String nick;
     private String pass;
-    private ArrayList<Usuario> amigos;
+    private ArrayList<ClienteInterface> amigos;
     
-     public ClienteImpl(String nick, String pass, ArrayList<Usuario> amigos) throws RemoteException {
+     public ClienteImpl(String nick, String pass, ArrayList<ClienteInterface> amigos) throws RemoteException {
         super();
         this.nick = nick;
         this.pass = pass;
         this.amigos = new ArrayList();
-        for(Usuario u : amigos){
+        for(ClienteInterface u : amigos){
             amigos.add(u);
         }
     }
@@ -48,17 +48,20 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         this.pass = pass;
     }
 
-    public ArrayList<Usuario> getAmigos() {
+    public ArrayList<ClienteInterface> getAmigos() {
         return amigos;
     }
 
-    public void setAmigos(ArrayList<Usuario> amigos) {
+    public void setAmigos(ArrayList<ClienteInterface> amigos) {
         this.amigos = amigos;
     }
 
     @Override
     public void mostrarMsg(String msg) {
         System.out.println(msg);
+        VChat chat = new VChat(msg);
+        chat.setVisible(true);
+        chat.setLocationRelativeTo(null);
     }
         
     
