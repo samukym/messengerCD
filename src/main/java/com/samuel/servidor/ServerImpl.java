@@ -55,5 +55,11 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         usuario.mostrarMsg(txtMsg);
     }
 
+
+    @Override
+    public ArrayList<ClienteInterface> getAmigos(ClienteInterface cl) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }// end ServerImpl class
 
