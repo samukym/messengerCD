@@ -28,5 +28,7 @@ public interface ServerInterface extends Remote{
   
   //envio de mensajes
   public void enviarMsg(ClienteInterface u, String txtMsg) throws java.rmi.RemoteException;
+  
+  
     
 }

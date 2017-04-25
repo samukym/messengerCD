@@ -62,13 +62,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         VChat chat = new VChat(msg);
         chat.setVisible(true);
         chat.setLocationRelativeTo(null);
-    }
-
-    @Override
-    public void notificarConectado(ArrayList<ClienteImpl> amigos) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-        
+    }    
     
-
 }
