@@ -27,6 +27,7 @@ public class ClienteImpl implements ClienteInterface{
     }
     public ClienteImpl(){
         super();
+        this.amigos = new ArrayList();
     }
    
     public String getNick() {

@@ -43,8 +43,11 @@ public class Usuario {
     }
 
     public void setAmigos(ArrayList<Usuario> amigos) {
-        this.amigos = amigos;
+        for(Usuario x : amigos){
+            this.amigos.add(x);
+        }
     }
-        
+    
+    
     
 }
