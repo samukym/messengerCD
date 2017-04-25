@@ -17,12 +17,18 @@ public class ClienteImpl implements ClienteInterface{
     private ArrayList<Usuario> amigos;
     
      public ClienteImpl(String nick, String pass, ArrayList<Usuario> amigos) {
+        super();
         this.nick = nick;
         this.pass = pass;
-        this.amigos = amigos;
+        this.amigos = new ArrayList();
+        for(Usuario u : amigos){
+            amigos.add(u);
+        }
     }
-    
-    
+    public ClienteImpl(){
+        super();
+    }
+   
     public String getNick() {
         return nick;
     }
@@ -45,6 +51,11 @@ public class ClienteImpl implements ClienteInterface{
 
     public void setAmigos(ArrayList<Usuario> amigos) {
         this.amigos = amigos;
+    }
+
+    @Override
+    public void mostrarMsg(String msg) {
+        System.out.println(msg);
     }
         
     

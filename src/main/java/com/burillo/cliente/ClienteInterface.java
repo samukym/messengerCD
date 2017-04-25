@@ -5,10 +5,14 @@
  */
 package com.burillo.cliente;
 
+import java.rmi.Remote;
+
 /**
  *
  * @author iburillo
  */
-public interface ClienteInterface {
+public interface ClienteInterface extends Remote{
+    
+    public void mostrarMsg(String msg);
     
 }

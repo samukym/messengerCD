@@ -13,7 +13,7 @@ import java.rmi.Remote;
  *
  * @author samu
  */
-interface ServerInterface extends Remote{
+public interface ServerInterface extends Remote{
     // This remote method allows an object client to 
 // register for callback
 // @param callbackClientObject is a reference to the
@@ -28,6 +28,6 @@ interface ServerInterface extends Remote{
   public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
   
   //envio de mensajes
-  public void enviarMsg(Usuario u, String txtMsg) throws java.rmi.RemoteException;
+  public void enviarMsg(ClienteInterface u, String txtMsg) throws java.rmi.RemoteException;
     
 }

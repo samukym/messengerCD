@@ -5,10 +5,12 @@
  */
 package com.samuel.servidor;
 
+import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
 import com.burillo.cliente.Usuario;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -17,11 +19,11 @@ import java.util.Vector;
  */
 class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
-    private Vector clientList;
+    private ArrayList<ClienteInterface> clientList;
     
     public ServerImpl() throws RemoteException {
         super();
-        clientList = new Vector();
+        clientList = new ArrayList<>();
     }
 
     @Override
@@ -29,7 +31,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             throws java.rmi.RemoteException {
         // store the callback object into the vector
         if (!(clientList.contains(callbackClientObject))) {
-            clientList.addElement(callbackClientObject);
+            clientList.add(callbackClientObject);
             System.out.println("Registered new client ");
         } // end if
     }
@@ -41,7 +43,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public synchronized void unregisterForCallback(ClienteInterface callbackClientObject)
             throws java.rmi.RemoteException {
-        if (clientList.removeElement(callbackClientObject)) {
+        if (clientList.remove(callbackClientObject)) {
             System.out.println("Unregistered client ");
         } else {
             System.out.println(
@@ -49,15 +51,9 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         }
     }
 
-    public synchronized void doCallbacks() throws java.rmi.RemoteException {
-        
-    } // doCallbacks
-
     @Override
-    public void enviarMsg(Usuario u, String txtMsg) throws RemoteException {
-        for (int i = 0; i< clientList.size(); i++) {
-            if()
-        }
+    public void enviarMsg(ClienteInterface usuario, String txtMsg) throws RemoteException {
+        clientList.get(1).mostrarMsg("hoola");
     }
 
 }// end ServerImpl class

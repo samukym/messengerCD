@@ -28,8 +28,6 @@ public class Servidor {
             registryURL = "rmi://localhost:4444/messenger";
             Naming.rebind(registryURL, exportedObj);
             System.out.println("Callback Server ready.");
-            //exportedObj.enviarNumeros();
-
         }// end try
         catch (Exception re) {
             System.out.println(
