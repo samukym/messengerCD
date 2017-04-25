@@ -5,10 +5,16 @@
  */
 package com.burillo.cliente;
 
+import java.rmi.Naming;
+import com.samuel.servidor.*;
+
 /**
  *
  * @author samu
  */
 public class Cliente {
-    
+            String registryURL = "rmi://localhost:4444/messenger";        
+            ServerImpl h = (CallbackServerInterface) Naming.lookup(registryURL);
+            ClienteInterface callbackObj = new ClienteImpl();
+            h.registerForCallback(callbackObj);
 }
