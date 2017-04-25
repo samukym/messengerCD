@@ -6,10 +6,7 @@
 package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteInterface;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import com.burillo.cliente.Usuario;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
@@ -24,7 +21,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
     public ServerImpl() throws RemoteException {
         super();
-        clientList = new Vector();;
+        clientList = new Vector();
     }
 
     @Override
@@ -55,6 +52,13 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     public synchronized void doCallbacks() throws java.rmi.RemoteException {
         
     } // doCallbacks
+
+    @Override
+    public void enviarMsg(Usuario u, String txtMsg) throws RemoteException {
+        for (int i = 0; i< clientList.size(); i++) {
+            if()
+        }
+    }
 
 }// end ServerImpl class
 

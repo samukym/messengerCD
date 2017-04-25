@@ -5,14 +5,48 @@
  */
 package com.burillo.cliente;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author iburillo
  */
 public class ClienteImpl implements ClienteInterface{
-
-    public ClienteImpl() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String nick;
+    private String pass;
+    private ArrayList<Usuario> amigos;
+    
+     public ClienteImpl(String nick, String pass, ArrayList<Usuario> amigos) {
+        this.nick = nick;
+        this.pass = pass;
+        this.amigos = amigos;
     }
+    
+    
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public ArrayList<Usuario> getAmigos() {
+        return amigos;
+    }
+
+    public void setAmigos(ArrayList<Usuario> amigos) {
+        this.amigos = amigos;
+    }
+        
+    
 
 }

@@ -6,6 +6,7 @@
 package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteInterface;
+import com.burillo.cliente.Usuario;
 import java.rmi.Remote;
 
 /**
@@ -25,5 +26,8 @@ interface ServerInterface extends Remote{
 // cancel its registration for callback
 
   public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
+  
+  //envio de mensajes
+  public void enviarMsg(Usuario u, String txtMsg) throws java.rmi.RemoteException;
     
 }
