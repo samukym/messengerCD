@@ -55,5 +55,10 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         usuario.mostrarMsg(txtMsg);
     }
 
+    @Override
+    public boolean login(String text, String text0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }// end ServerImpl class
 

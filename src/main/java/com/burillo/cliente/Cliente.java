@@ -20,12 +20,11 @@ public class Cliente {
             String registryURL = "rmi://localhost:4444/messenger";        
             ServerInterface h = (ServerInterface) Naming.lookup(registryURL);
             ClienteInterface callbackObj = new ClienteImpl();               
-            VLogin vl = new VLogin();
-            vl.setVisible(true);
-            vl.setLocationRelativeTo(null);
+            h.registerForCallback(callbackObj);    
+            //h.enviarMsg(callbackObj, "aslkdfjasdlñf");
             
-            /*h.registerForCallback(callbackObj);    
-            h.enviarMsg(callbackObj, "aslkdfjasdlñf");
-            */
+            VLogin vl = new VLogin(callbackObj);
+            vl.setVisible(true);
+            vl.setLocationRelativeTo(null);   
      }       
 }
