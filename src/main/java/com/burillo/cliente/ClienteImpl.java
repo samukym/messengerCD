@@ -29,6 +29,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     }
     public ClienteImpl() throws RemoteException{
         super();
+        this.amigos = new ArrayList();
     }
    
     public String getNick() {
