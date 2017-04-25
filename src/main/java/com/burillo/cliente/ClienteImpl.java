@@ -17,19 +17,24 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     private String nick;
     private String pass;
     private ArrayList<ClienteInterface> amigos;
+    private ArrayList<ClienteInterface> chats;
     
      public ClienteImpl(String nick, String pass, ArrayList<ClienteInterface> amigos) throws RemoteException {
         super();
         this.nick = nick;
         this.pass = pass;
         this.amigos = new ArrayList();
+        this.chats = new ArrayList();
+        if(amigos!=null){
         for(ClienteInterface u : amigos){
             amigos.add(u);
+        }
         }
     }
     public ClienteImpl() throws RemoteException{
         super();
         this.amigos = new ArrayList();
+        this.chats = new ArrayList();
     }
    
     public String getNick() {
@@ -58,10 +63,11 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
 
     @Override
     public void mostrarMsg(String msg) {
-        System.out.println(msg);
+        
         VChat chat = new VChat(msg);
         chat.setVisible(true);
         chat.setLocationRelativeTo(null);
+        
     }    
     
 }

@@ -20,7 +20,7 @@ public class VChat extends javax.swing.JFrame {
 
     VChat(String msg) {
         initComponents();
-        panel.append(msg);
+        panel.append("   "+msg);
     }
 
     /**
@@ -35,7 +35,7 @@ public class VChat extends javax.swing.JFrame {
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jToggleButton1 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        texto = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         panel = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -52,9 +52,9 @@ public class VChat extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(3);
-        jScrollPane1.setViewportView(jTextArea1);
+        texto.setColumns(20);
+        texto.setRows(3);
+        jScrollPane1.setViewportView(texto);
 
         panel.setColumns(20);
         panel.setRows(5);
@@ -92,7 +92,7 @@ public class VChat extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
@@ -118,9 +118,12 @@ public class VChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        panel.append("\npene");
+        panel.append("\n"+texto.getText());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    public void añadirLinea(String msg){
+        panel.append("\n   "+msg);
+    }
     /**
      * @param args the command line arguments
      */
@@ -162,8 +165,8 @@ public class VChat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextArea panel;
+    private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
 }

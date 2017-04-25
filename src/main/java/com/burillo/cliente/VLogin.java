@@ -19,8 +19,8 @@ public class VLogin extends javax.swing.JFrame {
     /**
      * Creates new form VLogin
      */
-    ClienteInterface callbackObj;
-    ServerInterface h;
+    private ClienteInterface callbackObj;
+    private ServerInterface h;
     
     public VLogin() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
@@ -28,6 +28,7 @@ public class VLogin extends javax.swing.JFrame {
     public VLogin(ClienteInterface callbackObj,ServerInterface h) {
         this.callbackObj = callbackObj;
         this.h = h;
+        initComponents();
     }
 
     /**
@@ -146,18 +147,22 @@ public class VLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ClienteImpl c = null;
-        if(h.login(user.getText(),pass.getText())){
-            try {
-                c = new ClienteImpl(user.getText(),pass.getText(),h.getAmigos(callbackObj));
-            } catch (RemoteException ex) {
-                Logger.getLogger(VLogin.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            if(h.login(user.getText(),pass.getText(),callbackObj)){
+                try {
+                    c = new ClienteImpl(user.getText(),pass.getText(),null);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(VLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                VPrincipal v = new VPrincipal(h,c,callbackObj);
+                v.setVisible(true);
+                v.setLocationRelativeTo(null);
+                this.setVisible(false);
+                this.dispose();
             }
-        
-        VPrincipal v = new VPrincipal(h,c);
-        v.setVisible(true);
-        v.setLocationRelativeTo(null);
-        this.setVisible(false);
-        this.dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(VLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

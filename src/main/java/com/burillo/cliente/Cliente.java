@@ -21,10 +21,10 @@ public class Cliente {
             ServerInterface h = (ServerInterface) Naming.lookup(registryURL);
             ClienteInterface callbackObj = new ClienteImpl();               
             h.registerForCallback(callbackObj);    
-            //h.enviarMsg(callbackObj, "aslkdfjasdlñf");
+            //h.enviarMsg(callbackObj, "hola");
             
             VLogin vl = new VLogin(callbackObj,h);
             vl.setVisible(true);
-            vl.setLocationRelativeTo(null);   
+            vl.setLocationRelativeTo(null);
      }       
 }

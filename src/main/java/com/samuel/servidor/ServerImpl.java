@@ -10,6 +10,9 @@ import com.burillo.cliente.ClienteInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -18,16 +21,17 @@ import java.util.Vector;
  */
 class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
-    private ArrayList<ClienteInterface> clientList;
+    private ArrayList<ClienteInterface> clientList; //Lista "provisional"
+    private HashMap<ClienteInterface,String> clients; //Lista definitiva con el nickname asociado
     
     public ServerImpl() throws RemoteException {
         super();
         clientList = new ArrayList<>();
+        clients = new HashMap();
     }
 
     @Override
-    public synchronized void registerForCallback(ClienteInterface callbackClientObject)
-            throws java.rmi.RemoteException {
+    public synchronized void registerForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException {
         // store the callback object into the vector
         if (!(clientList.contains(callbackClientObject))) {
             clientList.add(callbackClientObject);
@@ -51,14 +55,31 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public void enviarMsg(ClienteInterface usuario, String txtMsg) throws RemoteException {
-        usuario.mostrarMsg(txtMsg);
+    public void enviarMsg(ClienteInterface destino, String txtMsg) throws RemoteException {
+        destino.mostrarMsg(txtMsg);
     }
 
 
+
     @Override
-    public ArrayList<ClienteInterface> getAmigos(ClienteInterface cl) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean login(String nombre, String pass, ClienteInterface user) throws RemoteException {
+        if(clientList.contains(user)){
+            clients.put(user, nombre);     
+            clientList.remove(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<String> buscaAmigos(String nickname) throws RemoteException {
+        Iterator clientes = clients.entrySet().iterator();
+        ArrayList<String> resultado = new ArrayList();
+        while (clientes.hasNext()){
+        Map.Entry pair = (Map.Entry)clientes.next();
+        resultado.add(pair.getValue().toString());
+        }
+        return resultado;
     }
 
 }// end ServerImpl class

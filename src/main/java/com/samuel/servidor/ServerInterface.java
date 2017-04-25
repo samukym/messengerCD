@@ -28,8 +28,10 @@ public interface ServerInterface extends Remote{
   public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
   
   //envio de mensajes
-  public void enviarMsg(ClienteInterface u, String txtMsg) throws java.rmi.RemoteException;
+  public void enviarMsg(ClienteInterface destino, String txtMsg) throws java.rmi.RemoteException;
 
-  public ArrayList<ClienteInterface> getAmigos(ClienteInterface cl);
+  public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
+  
+  public boolean login(String nombre,String pass,ClienteInterface user) throws java.rmi.RemoteException;
     
 }
