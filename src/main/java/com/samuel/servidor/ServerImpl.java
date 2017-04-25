@@ -53,7 +53,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void enviarMsg(ClienteInterface usuario, String txtMsg) throws RemoteException {
-        clientList.get(0).mostrarMsg("hoola");
+        usuario.mostrarMsg(txtMsg);
     }
 
 }// end ServerImpl class

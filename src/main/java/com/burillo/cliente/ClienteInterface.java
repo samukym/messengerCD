@@ -15,5 +15,6 @@ import java.rmi.RemoteException;
 public interface ClienteInterface extends Remote{
     
     public void mostrarMsg(String msg) throws RemoteException;
+    public void notificarConectado() throws RemoteException;
     
 }
