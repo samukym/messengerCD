@@ -5,6 +5,7 @@
  */
 package com.samuel.servidor;
 
+import com.burillo.cliente.ClienteInterface;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,7 +28,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public synchronized void registerForCallback(ClientInterface callbackClientObject)
+    public synchronized void registerForCallback(ClienteInterface callbackClientObject)
             throws java.rmi.RemoteException {
         // store the callback object into the vector
         if (!(clientList.contains(callbackClientObject))) {
@@ -41,7 +42,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 // @param id is an ID for the client; to be used by
 // the server to uniquely identify the registered client.
     @Override
-    public synchronized void unregisterForCallback(ClientInterface callbackClientObject)
+    public synchronized void unregisterForCallback(ClienteInterface callbackClientObject)
             throws java.rmi.RemoteException {
         if (clientList.removeElement(callbackClientObject)) {
             System.out.println("Unregistered client ");

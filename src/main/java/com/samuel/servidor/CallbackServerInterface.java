@@ -5,10 +5,25 @@
  */
 package com.samuel.servidor;
 
+import com.burillo.cliente.ClienteInterface;
+import java.rmi.Remote;
+
 /**
  *
  * @author samu
  */
-interface ServerInterface {
+interface ServerInterface extends Remote{
+    // This remote method allows an object client to 
+// register for callback
+// @param callbackClientObject is a reference to the
+//        object of the client; to be used by the server
+//        to make its callbacks.
+
+  public void registerForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
+
+// This remote method allows an object client to 
+// cancel its registration for callback
+
+  public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
     
 }
