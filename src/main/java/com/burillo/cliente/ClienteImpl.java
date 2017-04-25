@@ -5,18 +5,20 @@
  */
 package com.burillo.cliente;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
  *
  * @author iburillo
  */
-public class ClienteImpl implements ClienteInterface{
+public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
     private String nick;
     private String pass;
     private ArrayList<Usuario> amigos;
     
-     public ClienteImpl(String nick, String pass, ArrayList<Usuario> amigos) {
+     public ClienteImpl(String nick, String pass, ArrayList<Usuario> amigos) throws RemoteException {
         super();
         this.nick = nick;
         this.pass = pass;
@@ -25,7 +27,7 @@ public class ClienteImpl implements ClienteInterface{
             amigos.add(u);
         }
     }
-    public ClienteImpl(){
+    public ClienteImpl() throws RemoteException{
         super();
     }
    

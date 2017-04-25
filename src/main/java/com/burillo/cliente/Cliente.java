@@ -22,5 +22,6 @@ public class Cliente {
             ClienteInterface callbackObj = new ClienteImpl();
             h.registerForCallback(callbackObj);            
             h.enviarMsg(callbackObj, "aslkdfjasdlñf");
+            h.unregisterForCallback(callbackObj);
      }       
 }

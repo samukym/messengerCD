@@ -6,6 +6,7 @@
 package com.burillo.cliente;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -13,6 +14,6 @@ import java.rmi.Remote;
  */
 public interface ClienteInterface extends Remote{
     
-    public void mostrarMsg(String msg);
+    public void mostrarMsg(String msg) throws RemoteException;
     
 }
