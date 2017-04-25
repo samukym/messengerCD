@@ -13,8 +13,11 @@ import com.samuel.servidor.*;
  * @author samu
  */
 public class Cliente {
-            String registryURL = "rmi://localhost:4444/messenger";        
+            /*String registryURL = "rmi://localhost:4444/messenger";        
             ServerImpl h = (CallbackServerInterface) Naming.lookup(registryURL);
             ClienteInterface callbackObj = new ClienteImpl();
-            h.registerForCallback(callbackObj);
+            h.registerForCallback(callbackObj);*/
+            VLogin login = new VLogin();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
 }
