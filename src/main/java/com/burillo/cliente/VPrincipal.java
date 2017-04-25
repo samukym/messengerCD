@@ -16,17 +16,17 @@ public class VPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VPrincipal
      */
-    ClienteInterface callbackObj;
     ServerInterface h;
+    ClienteImpl c;
     public VPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
     }
 
-    VPrincipal(ClienteInterface callbackObj,ServerInterface h) {
+    VPrincipal(ServerInterface h,ClienteImpl c) {
         initComponents();
-        this.callbackObj = callbackObj;
         this.h = h;
+        this.c = c;
     }
 
     /**

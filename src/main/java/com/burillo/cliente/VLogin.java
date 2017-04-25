@@ -145,14 +145,15 @@ public class VLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ClienteImpl c = null;
         if(h.login(user.getText(),pass.getText())){
             try {
-                ClienteImpl c = new ClienteImpl(user.getText(),pass.getText(),h.getAmigos());
+                c = new ClienteImpl(user.getText(),pass.getText(),h.getAmigos(callbackObj));
             } catch (RemoteException ex) {
                 Logger.getLogger(VLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         
-        VPrincipal v = new VPrincipal(callbackObj,h);
+        VPrincipal v = new VPrincipal(h,c);
         v.setVisible(true);
         v.setLocationRelativeTo(null);
         this.setVisible(false);

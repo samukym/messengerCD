@@ -23,7 +23,7 @@ public class Cliente {
             h.registerForCallback(callbackObj);    
             //h.enviarMsg(callbackObj, "aslkdfjasdlñf");
             
-            VLogin vl = new VLogin(callbackObj);
+            VLogin vl = new VLogin(callbackObj,h);
             vl.setVisible(true);
             vl.setLocationRelativeTo(null);   
      }       

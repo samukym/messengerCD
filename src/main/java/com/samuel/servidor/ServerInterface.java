@@ -7,6 +7,7 @@ package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteInterface;
 import java.rmi.Remote;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,5 +29,9 @@ public interface ServerInterface extends Remote{
   
   //envio de mensajes
   public void enviarMsg(ClienteInterface u, String txtMsg) throws java.rmi.RemoteException;
+
+    public boolean login(String text, String text0);
+
+    public ArrayList<ClienteInterface> getAmigos(ClienteInterface cl);
     
 }
