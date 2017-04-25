@@ -6,7 +6,6 @@
 package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteInterface;
-import com.burillo.cliente.Usuario;
 import java.rmi.Remote;
 
 /**

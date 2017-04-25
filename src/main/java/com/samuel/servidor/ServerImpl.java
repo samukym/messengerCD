@@ -7,7 +7,6 @@ package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
-import com.burillo.cliente.Usuario;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void enviarMsg(ClienteInterface usuario, String txtMsg) throws RemoteException {
-        clientList.get(0).mostrarMsg("hoola");
+        usuario.mostrarMsg(txtMsg);
     }
 
 }// end ServerImpl class
