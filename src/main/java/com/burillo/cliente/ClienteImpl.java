@@ -69,5 +69,28 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         chat.setLocationRelativeTo(null);
         
     }    
+
+    @Override
+    public boolean enviarPeticionAmistad(String nickOrigen,ClienteInterface cIorigen,ClienteInterface cIdestino) throws RemoteException {
+        VPeticion vp = new VPeticion(nickOrigen);
+        vp.setVisible(true);
+        vp.setLocationRelativeTo(null);
+        while(vp.getAceptada()==0){
+            System.out.println(vp.getAceptada());
+        }
+        if(vp.getAceptada()==1){
+            this.amigos.add(cIorigen);
+            cIorigen.setAmigo(cIdestino);
+            vp.setVisible(false);return true;
+        }
+        else{
+            vp.setVisible(false);
+            return false;
+        }
+    }
+
+    public void setAmigo(ClienteInterface amigo) {
+        this.amigos.add(amigo);
+    }
     
 }

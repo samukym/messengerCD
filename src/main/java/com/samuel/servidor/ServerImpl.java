@@ -82,5 +82,45 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         return resultado;
     }
 
+    @Override
+    public boolean enviarPeticionAmistad(String nickDestino, ClienteInterface origen) throws RemoteException {
+        Iterator clientes = clients.entrySet().iterator();
+        boolean estado = false;
+        while (clientes.hasNext()){
+        Map.Entry pair = (Map.Entry)clientes.next();
+        if(pair.getValue().equals(nickDestino)){
+            ClienteInterface c = (ClienteInterface) pair.getKey();
+            estado = c.enviarPeticionAmistad(getNick(origen),origen,getUsuario(nickDestino));
+        }
+        }
+        return estado;
+    }
+
+    @Override
+    public ClienteInterface getUsuario(String nick) throws RemoteException {
+        Iterator clientes = clients.entrySet().iterator();
+        ClienteInterface c = null;
+        while (clientes.hasNext()){
+        Map.Entry pair = (Map.Entry)clientes.next();
+        if(pair.getValue().equals(nick)){
+            c = (ClienteInterface) pair.getKey();
+        }
+        }
+        return c;
+    }
+
+    @Override
+    public String getNick(ClienteInterface call) throws RemoteException {
+        Iterator clientes = clients.entrySet().iterator();
+        String c = null;
+        while (clientes.hasNext()){
+        Map.Entry pair = (Map.Entry)clientes.next();
+        if(pair.getKey().equals(call)){
+            c = pair.getValue().toString();
+        }
+        }
+        return c;
+    }
+
 }// end ServerImpl class
 

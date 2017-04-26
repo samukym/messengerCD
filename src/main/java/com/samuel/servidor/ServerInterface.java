@@ -6,6 +6,7 @@
 package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteInterface;
+import java.awt.PopupMenu;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
@@ -33,5 +34,11 @@ public interface ServerInterface extends Remote{
   public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
   
   public boolean login(String nombre,String pass,ClienteInterface user) throws java.rmi.RemoteException;
+
+    public boolean enviarPeticionAmistad(String nick, ClienteInterface toString) throws java.rmi.RemoteException;
+
+    public ClienteInterface getUsuario(String toString) throws java.rmi.RemoteException;
+
+    public String getNick(ClienteInterface call) throws java.rmi.RemoteException;
     
 }
