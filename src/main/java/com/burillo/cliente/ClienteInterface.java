@@ -19,6 +19,6 @@ public interface ClienteInterface extends Remote{
 
     public boolean enviarPeticionAmistad(String nick) throws RemoteException;
 
-    public void setAmigo(ClienteInterface amigo) throws RemoteException;
+    public void setAmigo(String amigo) throws RemoteException;
     
 }

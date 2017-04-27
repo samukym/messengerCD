@@ -35,20 +35,24 @@ public class HiloActualizar extends Thread{
     public void run() {
 
         while (true) {
-            usuarios = h.getAmigosConectados(nombre, usuarios,c);
-            if (usuarios != null) {
-                DefaultListModel modelo = new DefaultListModel();
-                for (int i = 0; i < usuarios.size(); i++) {
-                   
-                    modelo.addElement(usuarios.get(i));
-                }
-                pantalla.setModel(modelo);
-                
-            }
-            
             try {
-                  Thread.sleep(2000);
-              } catch (InterruptedException ex) {
+                usuarios = h.getAmigosConectados(nombre, usuarios,c);
+                if (usuarios != null) {
+                    DefaultListModel modelo = new DefaultListModel();
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        
+                        modelo.addElement(usuarios.get(i));
+                    }
+                    pantalla.setModel(modelo);
+                    
+                }
+                
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HiloActualizar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (RemoteException ex) {
                   Logger.getLogger(HiloActualizar.class.getName()).log(Level.SEVERE, null, ex);
               }
         }

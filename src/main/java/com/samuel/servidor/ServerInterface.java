@@ -7,7 +7,6 @@ package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
-import java.awt.PopupMenu;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
@@ -44,6 +43,6 @@ public interface ServerInterface extends Remote{
 
     public void actualizarAmigos(ClienteImpl c) throws java.rmi.RemoteException;
 
-    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c);
+    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c)throws java.rmi.RemoteException;
     
 }

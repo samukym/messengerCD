@@ -17,7 +17,7 @@ import java.rmi.RemoteException;
  */
 public class Cliente {
      public static void main(String args[]) throws RemoteException, MalformedURLException, NotBoundException{
-            String registryURL = "rmi://localhost:4444/messenger";        
+            String registryURL = "rmi://localhost:4444/messenger";  
             ServerInterface h = (ServerInterface) Naming.lookup(registryURL);
             ClienteInterface callbackObj = new ClienteImpl();               
             h.registerForCallback(callbackObj);    

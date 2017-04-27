@@ -24,7 +24,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private ServerInterface h;
     private ClienteImpl c;
     private ClienteInterface callbackObj;
-    private DefaultListModel modelo ;
     private ArrayList<String> amigosConectados;
     
     public VPrincipal() {
@@ -37,13 +36,7 @@ public class VPrincipal extends javax.swing.JFrame {
         this.h = h;
         this.c = c;
         this.callbackObj = callbackObj;
-        this.jLabel4.setText(c.getNick());
-        this.modelo = new DefaultListModel();
-        listaAmigos.setModel(modelo);     
-        for(ClienteInterface call : c.getAmigos()){
-            modelo.addElement(h.getNick(call));
-        }
-        listaAmigos.setModel(modelo);
+        this.jLabel4.setText(c.getNick());       
         amigosConectados = new ArrayList();
         Thread actualizar = new HiloActualizar(listaAmigos, h, c.getNick(), amigosConectados,this.callbackObj);
         actualizar.start();

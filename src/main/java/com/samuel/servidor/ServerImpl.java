@@ -9,11 +9,17 @@ import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,12 +28,18 @@ import java.util.Vector;
 class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
     private ArrayList<ClienteInterface> clientList; //Lista "provisional"
-    private HashMap<ClienteInterface,ClienteImpl> clients; //Lista definitiva con el nickname asociado
+    private HashMap<ClienteInterface,String> clients; //Lista definitiva con el nickname asociado
+    private ArrayList<String> usuariosOnline;
+    private final Conexion conexion;
+    private final Connection cn;
     
     public ServerImpl() throws RemoteException {
         super();
-        clientList = new ArrayList<>();
-        clients = new HashMap<>();
+        clientList = new ArrayList();
+        clients = new HashMap();
+        conexion = new Conexion();
+        cn = conexion.conexion();
+        usuariosOnline = new ArrayList();
     }
 
     @Override
@@ -59,10 +71,18 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public boolean login(String nombre, String pass, ClienteInterface user) throws RemoteException {
         if(clientList.contains(user)){
-            ClienteImpl cli = new ClienteImpl(nombre,pass,null);
-            clients.put(user,cli);     
-            clientList.remove(user);
-            return true;
+            try {                
+                Statement ps = cn.createStatement();
+                ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nombre + "'"
+                        + "and pass like '" + pass + "';");
+                while (rs.next()) {
+                    usuariosOnline.add(nombre);
+                    clients.put(user, nombre);
+                    return true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -90,8 +110,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         ClienteInterface c = null;
         while (clientes.hasNext()){
         Map.Entry pair = (Map.Entry)clientes.next();
-        ClienteImpl aux = (ClienteImpl)pair.getValue();
-        if(aux.getNick().equals(nick)){
+        if(pair.getValue().toString().equals(nick)){
             c = (ClienteInterface) pair.getKey();
         }
         }
@@ -105,8 +124,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         while (clientes.hasNext()){
         Map.Entry pair = (Map.Entry)clientes.next();
         if(pair.getKey().equals(call)){
-            ClienteImpl aux = (ClienteImpl)pair.getValue();
-            c = aux.getNick();
+            c = pair.getValue().toString();
         }
         }
         return c;
@@ -118,7 +136,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c) {
+    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c) throws RemoteException{
             return usuarios;
     }
 
