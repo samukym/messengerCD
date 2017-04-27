@@ -25,6 +25,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private String nombre;
     private ClienteInterface callbackObj;
     private ArrayList<String> amigosConectados;
+     DefaultListModel df;
     
     public VPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -36,11 +37,16 @@ public class VPrincipal extends javax.swing.JFrame {
         this.h = h;
         this.nombre = nombre;
         this.callbackObj = callbackObj;
-        this.jLabel4.setText(nombre);       
+        this.jLabel4.setText(nombre);      
         amigosConectados = new ArrayList();
         amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);       
         Thread actualizar = new HiloActualizar(listaAmigos, h, nombre, amigosConectados,this.callbackObj);
         actualizar.start();
+        df = new DefaultListModel();
+        for(String a : amigosConectados){
+            df.addElement(a);
+        }
+        listaAmigos.setModel(df);
     }
 
     /**
@@ -244,7 +250,9 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
+        VChat vChat = new VChat("burillo");
+        System.out.println(listaAmigos.getSelectedValue());
+        vChat.setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

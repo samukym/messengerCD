@@ -21,7 +21,7 @@ public class Conexion {
         conectar = DriverManager.getConnection("jdbc:mysql://localhost/messenger","root","1234");
             System.out.println("Conectado a la base de datos");
         }catch(ClassNotFoundException | SQLException e){
-            
+            System.out.println("ERROR: " +e); 
         }
         return conectar;
     }

@@ -14,13 +14,16 @@ public class VChat extends javax.swing.JFrame {
     /**
      * Creates new form VChat
      */
+    String nickOrigen;
     public VChat() {
         initComponents();
     }
 
     VChat(String msg) {
         initComponents();
-        panel.append("   "+msg);
+        panel.setEditable(false);
+        this.nickOrigen = msg;
+        jLabel2.setText(nickOrigen);
     }
 
     /**
@@ -118,7 +121,7 @@ public class VChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        panel.append("\n"+texto.getText());
+        panel.append("\n"+nickOrigen+"dice: "+texto.getText());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     public void añadirLinea(String msg){

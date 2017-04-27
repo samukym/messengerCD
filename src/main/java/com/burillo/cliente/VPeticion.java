@@ -67,6 +67,11 @@ public class VPeticion extends javax.swing.JFrame {
         });
 
         jButton4.setText("Rechazar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("X");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +129,10 @@ public class VPeticion extends javax.swing.JFrame {
             Logger.getLogger(VPeticion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
