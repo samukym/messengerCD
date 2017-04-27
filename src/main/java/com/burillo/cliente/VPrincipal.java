@@ -25,6 +25,8 @@ public class VPrincipal extends javax.swing.JFrame {
     private ClienteImpl c;
     private ClienteInterface callbackObj;
     private DefaultListModel modelo ;
+    private ArrayList<String> amigosConectados;
+    
     public VPrincipal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
@@ -42,6 +44,9 @@ public class VPrincipal extends javax.swing.JFrame {
             modelo.addElement(h.getNick(call));
         }
         listaAmigos.setModel(modelo);
+        amigosConectados = new ArrayList();
+        Thread actualizar = new HiloActualizar(listaAmigos, h, c.getNick(), amigosConectados,this.callbackObj);
+        actualizar.start();
     }
 
     /**
@@ -200,6 +205,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            h.unregisterForCallback(callbackObj);
+        } catch (RemoteException ex) {
+            Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -220,26 +230,11 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_resultadoActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        try {
-            if(h.enviarPeticionAmistad(resultado.getSelectedItem().toString(),this.callbackObj)){
-                ClienteInterface cl = h.getUsuario(resultado.getSelectedItem().toString());
-                if(c!=null) c.setAmigo(cl);
-                else System.out.println("No existe tal amigo");
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        for(ClienteInterface call : c.getAmigos()){
-            try {
-                modelo.addElement(h.getNick(call));
-            } catch (RemoteException ex) {
-                Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        listaAmigos.setModel(modelo);
+        
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

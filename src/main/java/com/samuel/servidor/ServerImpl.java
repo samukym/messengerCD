@@ -22,12 +22,12 @@ import java.util.Vector;
 class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
     private ArrayList<ClienteInterface> clientList; //Lista "provisional"
-    private HashMap<ClienteInterface,String> clients; //Lista definitiva con el nickname asociado
+    private HashMap<ClienteInterface,ClienteImpl> clients; //Lista definitiva con el nickname asociado
     
     public ServerImpl() throws RemoteException {
         super();
         clientList = new ArrayList<>();
-        clients = new HashMap();
+        clients = new HashMap<>();
     }
 
     @Override
@@ -39,14 +39,11 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         } // end if
     }
 
-// This remote method allows an object client to
-// cancel its registration for callback
-// @param id is an ID for the client; to be used by
-// the server to uniquely identify the registered client.
     @Override
     public synchronized void unregisterForCallback(ClienteInterface callbackClientObject)
             throws java.rmi.RemoteException {
-        if (clientList.remove(callbackClientObject)) {
+        if (clients.containsKey(callbackClientObject)) {
+            clients.remove(callbackClientObject);
             System.out.println("Unregistered client ");
         } else {
             System.out.println(
@@ -59,12 +56,11 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         destino.mostrarMsg(txtMsg);
     }
 
-
-
     @Override
     public boolean login(String nombre, String pass, ClienteInterface user) throws RemoteException {
         if(clientList.contains(user)){
-            clients.put(user, nombre);     
+            ClienteImpl cli = new ClienteImpl(nombre,pass,null);
+            clients.put(user,cli);     
             clientList.remove(user);
             return true;
         }
@@ -77,23 +73,15 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         ArrayList<String> resultado = new ArrayList();
         while (clientes.hasNext()){
         Map.Entry pair = (Map.Entry)clientes.next();
-        resultado.add(pair.getValue().toString());
+        ClienteImpl aux = (ClienteImpl)pair.getValue();
+        resultado.add(aux.getNick());
         }
         return resultado;
     }
 
     @Override
-    public boolean enviarPeticionAmistad(String nickDestino, ClienteInterface origen) throws RemoteException {
-        Iterator clientes = clients.entrySet().iterator();
-        boolean estado = false;
-        while (clientes.hasNext()){
-        Map.Entry pair = (Map.Entry)clientes.next();
-        if(pair.getValue().equals(nickDestino)){
-            ClienteInterface c = (ClienteInterface) pair.getKey();
-            estado = c.enviarPeticionAmistad(getNick(origen),origen,getUsuario(nickDestino));
-        }
-        }
-        return estado;
+    public boolean enviarPeticionAmistad(String nickAmigo, String origen) throws RemoteException {
+        return true;
     }
 
     @Override
@@ -102,7 +90,8 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         ClienteInterface c = null;
         while (clientes.hasNext()){
         Map.Entry pair = (Map.Entry)clientes.next();
-        if(pair.getValue().equals(nick)){
+        ClienteImpl aux = (ClienteImpl)pair.getValue();
+        if(aux.getNick().equals(nick)){
             c = (ClienteInterface) pair.getKey();
         }
         }
@@ -116,11 +105,22 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         while (clientes.hasNext()){
         Map.Entry pair = (Map.Entry)clientes.next();
         if(pair.getKey().equals(call)){
-            c = pair.getValue().toString();
+            ClienteImpl aux = (ClienteImpl)pair.getValue();
+            c = aux.getNick();
         }
         }
         return c;
     }
 
-}// end ServerImpl class
+    @Override
+    public void actualizarAmigos(ClienteImpl c) throws RemoteException {
+        
+    }
+
+    @Override
+    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c) {
+            return usuarios;
+    }
+
+}
 
