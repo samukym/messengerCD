@@ -17,13 +17,9 @@ import java.util.ArrayList;
  * @author iburillo
  */
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
-    private ArrayList<String> amigos;
-    private ArrayList<ClienteInterface> chats;
-    
+     
      public ClienteImpl(ArrayList<ClienteInterface> amigos) throws RemoteException {
         super();
-        this.amigos = new ArrayList();
-        this.chats = new ArrayList();
         if(amigos!=null){
         for(ClienteInterface u : amigos){
             amigos.add(u);
@@ -32,18 +28,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     }
     public ClienteImpl() throws RemoteException{
         super();
-        this.amigos = new ArrayList();
-        this.chats = new ArrayList();
-    }
-
-    public ArrayList<String> getAmigos() {
-        return amigos;
-    }
-
-    public void setAmigos(ArrayList<String> amigos) {
-       for(String x : amigos){
-           this.amigos.add(x);
-       }
     }
 
     @Override
@@ -54,16 +38,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         chat.setLocationRelativeTo(null);
         
     }    
-
-    @Override
-    public boolean enviarPeticionAmistad(String nick) throws RemoteException {
-        return true;
-    }
-
-    @Override
-    public void setAmigo(String amigo) {
-        this.amigos.add(amigo);
-    }
 
     @Override
     public void mostrarNotificacion(String nombre,String nombre2) throws RemoteException {

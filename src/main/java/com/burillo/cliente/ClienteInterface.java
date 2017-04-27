@@ -17,10 +17,6 @@ public interface ClienteInterface extends Remote{
     
     public void mostrarMsg(String msg) throws RemoteException;
 
-    public boolean enviarPeticionAmistad(String nick) throws RemoteException;
-
-    public void setAmigo(String amigo) throws RemoteException;
-
     public void mostrarNotificacion(String nombre,String nombre2) throws RemoteException;
     
 }

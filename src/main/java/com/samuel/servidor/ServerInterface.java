@@ -16,35 +16,30 @@ import javax.swing.JTextField;
  *
  * @author samu
  */
-public interface ServerInterface extends Remote{
-    // This remote method allows an object client to 
-// register for callback
-// @param callbackClientObject is a reference to the
-//        object of the client; to be used by the server
-//        to make its callbacks.
+public interface ServerInterface extends Remote {
 
-  public void registerForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
+    public void registerForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
 
-// This remote method allows an object client to 
-// cancel its registration for callback
+    public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
 
-  public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
-  
-  //envio de mensajes
-  public void enviarMsg(ClienteInterface destino, String txtMsg) throws java.rmi.RemoteException;
+    public void enviarMsg(ClienteInterface destino, String txtMsg) throws java.rmi.RemoteException;
 
-  public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
-  
-  public boolean login(String nombre,String pass,ClienteInterface user) throws java.rmi.RemoteException;
+    public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
 
-    public boolean enviarPeticionAmistad(String nickAmigo, String origen) throws java.rmi.RemoteException;
+    public boolean login(String nombre, String pass, ClienteInterface user) throws java.rmi.RemoteException;
+
+    public void enviarPeticionAmistad(String nickAmigo, String origen) throws java.rmi.RemoteException;
 
     public ClienteInterface getUsuario(String toString) throws java.rmi.RemoteException;
 
     public String getNick(ClienteInterface call) throws java.rmi.RemoteException;
 
-    public ArrayList<String> getAmigosConectados(boolean tipo,String nombre, ArrayList<String> usuarios, ClienteInterface c)throws java.rmi.RemoteException;
+    public ArrayList<String> getAmigosConectados(boolean tipo, String nombre, ArrayList<String> usuarios, ClienteInterface c) throws java.rmi.RemoteException;
 
     public boolean nuevoUsuario(String nick, String c1) throws java.rmi.RemoteException;
-    
+
+    public ArrayList<String> getListaPeticiones(ClienteInterface callbackObj) throws java.rmi.RemoteException;
+
+    public void aceptarAmigo(String toString, ClienteInterface callbackObj) throws java.rmi.RemoteException;
+
 }
