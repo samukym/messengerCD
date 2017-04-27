@@ -36,7 +36,7 @@ public class HiloActualizar extends Thread{
 
         while (true) {
             try {
-                usuarios = h.getAmigosConectados(nombre, usuarios,c);
+                usuarios = h.getAmigosConectados(true,nombre, usuarios,c);
                 if (usuarios != null) {
                     DefaultListModel modelo = new DefaultListModel();
                     for (int i = 0; i < usuarios.size(); i++) {
@@ -48,7 +48,7 @@ public class HiloActualizar extends Thread{
                 }
                 
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(HiloActualizar.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -31,14 +31,15 @@ public class VPrincipal extends javax.swing.JFrame {
         
     }
 
-    VPrincipal(ServerInterface h,ClienteImpl c,ClienteInterface callbackObj) throws RemoteException {
+    VPrincipal(ServerInterface h,String nombre,ClienteInterface callbackObj) throws RemoteException {
         initComponents();
         this.h = h;
         this.c = c;
         this.callbackObj = callbackObj;
-        this.jLabel4.setText(c.getNick());       
+        this.jLabel4.setText(nombre);       
         amigosConectados = new ArrayList();
-        Thread actualizar = new HiloActualizar(listaAmigos, h, c.getNick(), amigosConectados,this.callbackObj);
+        amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);       
+        Thread actualizar = new HiloActualizar(listaAmigos, h, nombre, amigosConectados,this.callbackObj);
         actualizar.start();
     }
 

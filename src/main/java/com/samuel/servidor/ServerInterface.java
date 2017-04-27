@@ -9,6 +9,8 @@ import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
 import java.rmi.Remote;
 import java.util.ArrayList;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -41,8 +43,8 @@ public interface ServerInterface extends Remote{
 
     public String getNick(ClienteInterface call) throws java.rmi.RemoteException;
 
-    public void actualizarAmigos(ClienteImpl c) throws java.rmi.RemoteException;
+    public ArrayList<String> getAmigosConectados(boolean tipo,String nombre, ArrayList<String> usuarios, ClienteInterface c)throws java.rmi.RemoteException;
 
-    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c)throws java.rmi.RemoteException;
+    public boolean nuevoUsuario(String nick, String c1) throws java.rmi.RemoteException;
     
 }

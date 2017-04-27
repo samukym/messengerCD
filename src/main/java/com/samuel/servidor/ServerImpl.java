@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -29,7 +30,6 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     
     private ArrayList<ClienteInterface> clientList; //Lista "provisional"
     private HashMap<ClienteInterface,String> clients; //Lista definitiva con el nickname asociado
-    private ArrayList<String> usuariosOnline;
     private final Conexion conexion;
     private final Connection cn;
     
@@ -39,7 +39,6 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         clients = new HashMap();
         conexion = new Conexion();
         cn = conexion.conexion();
-        usuariosOnline = new ArrayList();
     }
 
     @Override
@@ -76,7 +75,6 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
                 ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nombre + "'"
                         + "and pass like '" + pass + "';");
                 while (rs.next()) {
-                    usuariosOnline.add(nombre);
                     clients.put(user, nombre);
                     return true;
                 }
@@ -89,13 +87,8 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public ArrayList<String> buscaAmigos(String nickname) throws RemoteException {
-        Iterator clientes = clients.entrySet().iterator();
         ArrayList<String> resultado = new ArrayList();
-        while (clientes.hasNext()){
-        Map.Entry pair = (Map.Entry)clientes.next();
-        ClienteImpl aux = (ClienteImpl)pair.getValue();
-        resultado.add(aux.getNick());
-        }
+       
         return resultado;
     }
 
@@ -131,13 +124,49 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public void actualizarAmigos(ClienteImpl c) throws RemoteException {
-        
+    public ArrayList<String> getAmigosConectados(boolean tipo,String nombre, ArrayList<String> usuarios, ClienteInterface c) throws RemoteException{
+        ArrayList<String> amigos = new ArrayList();
+        int tinicial = usuarios.size();
+        try {        
+            Statement ps = cn.createStatement();
+            ResultSet rs = ps.executeQuery("Select amigo1,amigo2 from amigos where amigo1 like '" + nombre + "'"
+                    + "or amigo2 like '" + nombre + "';");
+            while (rs.next()) {
+                if(!rs.getString(1).equals(nombre) && clients.containsValue(rs.getString(1)))
+                    amigos.add(rs.getString(1));
+                if(!rs.getString(2).equals(nombre) && clients.containsValue(rs.getString(2)))
+                    amigos.add(rs.getString(2));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(tipo){
+        if(tinicial < amigos.size()){
+            for (int i = tinicial; i < amigos.size(); i++) {
+                    c.mostrarNotificacion(amigos.get(i),nombre);
+                }
+        }
+        }
+        return amigos;
     }
 
     @Override
-    public ArrayList<String> getAmigosConectados(String nombre, ArrayList<String> usuarios, ClienteInterface c) throws RemoteException{
-            return usuarios;
+    public boolean nuevoUsuario(String nick, String pass) throws RemoteException {
+        try {                
+                Statement ps = cn.createStatement();
+                ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nick + "'"
+                        + "and pass like '" + pass + "';");
+                while (rs.next()) {                  
+                    return false;
+                }
+                if(ps.executeUpdate("insert into usuarios values('"+nick+"','"+pass+"');")==0){
+                    return true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return false;
     }
 
 }

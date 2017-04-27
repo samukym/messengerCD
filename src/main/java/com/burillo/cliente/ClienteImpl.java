@@ -5,6 +5,9 @@
  */
 package com.burillo.cliente;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -14,15 +17,11 @@ import java.util.ArrayList;
  * @author iburillo
  */
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
-    private String nick;
-    private String pass;
     private ArrayList<String> amigos;
     private ArrayList<ClienteInterface> chats;
     
-     public ClienteImpl(String nick, String pass, ArrayList<ClienteInterface> amigos) throws RemoteException {
+     public ClienteImpl(ArrayList<ClienteInterface> amigos) throws RemoteException {
         super();
-        this.nick = nick;
-        this.pass = pass;
         this.amigos = new ArrayList();
         this.chats = new ArrayList();
         if(amigos!=null){
@@ -35,22 +34,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         super();
         this.amigos = new ArrayList();
         this.chats = new ArrayList();
-    }
-   
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public ArrayList<String> getAmigos() {
@@ -80,6 +63,18 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     @Override
     public void setAmigo(String amigo) {
         this.amigos.add(amigo);
+    }
+
+    @Override
+    public void mostrarNotificacion(String nombre,String nombre2) throws RemoteException {
+        VAvisoConexion v = new VAvisoConexion(nombre,nombre2);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() - v.getWidth();
+        int y = (int) rect.getMaxY() - v.getHeight();
+        v.setLocation(x, y);
+        v.setVisible(true);
     }
     
 }

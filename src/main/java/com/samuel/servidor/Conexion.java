@@ -19,7 +19,7 @@ public class Conexion {
         try{
         Class.forName("com.mysql.jdbc.Driver");
         conectar = DriverManager.getConnection("jdbc:mysql://localhost/messenger","root","1234");
-            System.out.println("CONECTADO LOCO");
+            System.out.println("Conectado a la base de datos");
         }catch(ClassNotFoundException | SQLException e){
             
         }
