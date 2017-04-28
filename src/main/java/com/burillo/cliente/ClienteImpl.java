@@ -21,6 +21,8 @@ import java.util.HashMap;
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
      HashMap<String, VChat> ventanasChat;
      ServerInterface h;
+     VPrincipal vprincipal;
+     
      public ClienteImpl(ArrayList<ClienteInterface> amigos, ServerInterface h) throws RemoteException {
         super();
         this.h = h;
@@ -36,6 +38,12 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         this.h = h;
         ventanasChat = new HashMap<>();
     }
+
+    public void setVprincipal(VPrincipal vprincipal) {
+        this.vprincipal = vprincipal;
+    }
+    
+    
 
 
     public void addVentanaChat(String nick, VChat ventanaC){
@@ -66,6 +74,11 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         int y = (int) rect.getMaxY() - v.getHeight();
         v.setLocation(x, y);
         v.setVisible(true);
+    }
+
+    @Override
+    public void actualizarListAmigos() throws RemoteException {
+        vprincipal.actualizarAmigos();
     }
     
 }

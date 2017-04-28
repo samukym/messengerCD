@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
@@ -25,21 +26,25 @@ public class VPrincipal extends javax.swing.JFrame {
     private String nombre;
     private ClienteInterface callbackObj;
     private ArrayList<String> amigosConectados;
-    
+
     public VPrincipal() {
-        
+
     }
 
-    VPrincipal(ServerInterface h,String nombre,ClienteInterface callbackObj) throws RemoteException {
+    VPrincipal(ServerInterface h, String nombre, ClienteInterface callbackObj) throws RemoteException {
         initComponents();
         this.h = h;
         this.nombre = nombre;
         this.callbackObj = callbackObj;
-        this.jLabel4.setText(nombre);      
+        this.jLabel4.setText(nombre);
         amigosConectados = new ArrayList();
-        amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);       
-        Thread actualizar = new HiloActualizar(listaAmigos, h, nombre, amigosConectados,this.callbackObj);
-        actualizar.start();
+        amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);
+        //Thread actualizar = new HiloActualizar(listaAmigos, h, nombre, amigosConectados, this.callbackObj);
+        //actualizar.start();
+    }
+
+    public void setListaAmigos(JList<String> listaAmigos) {
+        this.listaAmigos = listaAmigos;
     }
 
     /**
@@ -267,6 +272,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             h.unregisterForCallback(callbackObj);
+            h.actualizarAmigos();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,22 +290,22 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
         VChat vChat;
-        vChat = new VChat(h, listaAmigos.getSelectedValue(), nombre);
+        vChat = new VChat(h, "burillo", nombre);
         ClienteImpl c = (ClienteImpl) callbackObj;
-        c.addVentanaChat(listaAmigos.getSelectedValue(), vChat);
+        c.addVentanaChat("burillo", vChat);
         vChat.setVisible(true);
-        
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       VPeticion vp;
+        VPeticion vp;
         try {
-            vp = new VPeticion(this.h,this.callbackObj);
+            vp = new VPeticion(this.h, this.callbackObj);
             vp.setVisible(true);
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -309,7 +315,7 @@ public class VPrincipal extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(String x : aux){
+        for (String x : aux) {
             resultado.addItem(x);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -319,14 +325,14 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_resultadoActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        VCambioClave v = new VCambioClave(this.nombre,this.h);
+        VCambioClave v = new VCambioClave(this.nombre, this.h);
         v.setVisible(true);
         v.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       VConfirmacion v = new VConfirmacion(this.nombre,this.h,this);
-       v.setVisible(true);
+        VConfirmacion v = new VConfirmacion(this.nombre, this.h, this);
+        v.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -384,4 +390,15 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JList<String> listaAmigos;
     private javax.swing.JComboBox<String> resultado;
     // End of variables declaration//GEN-END:variables
+
+    void actualizarAmigos() throws RemoteException {
+        amigosConectados = h.getAmigosConectados(true, nombre, amigosConectados, this.callbackObj);
+        if (amigosConectados != null) {
+            DefaultListModel modelo = new DefaultListModel();
+            for (int i = 0; i < amigosConectados.size(); i++) {
+                modelo.addElement(amigosConectados.get(i));
+            }
+            listaAmigos.setModel(modelo);
+        }
+    }
 }

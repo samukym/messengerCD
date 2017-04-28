@@ -142,7 +142,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public ArrayList<String> getAmigosConectados(boolean tipo, String nombre, ArrayList<String> usuarios, ClienteInterface c) throws RemoteException {
         ArrayList<String> amigos = new ArrayList();
-        int tinicial=0;
+        int tinicial = 0;
         if (tipo) {
             tinicial = usuarios.size();
         }
@@ -251,6 +251,17 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             ps.executeUpdate("delete from usuarios where nick like '" + text + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void actualizarAmigos() throws RemoteException {
+        Iterator clientes = clients.entrySet().iterator();
+        ClienteInterface c = null;
+        while (clientes.hasNext()) {
+            Map.Entry pair = (Map.Entry) clientes.next();
+            c = (ClienteInterface) pair.getKey();
+            c.actualizarListAmigos();
         }
     }
 

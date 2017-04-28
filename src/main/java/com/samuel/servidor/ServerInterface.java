@@ -48,5 +48,6 @@ public interface ServerInterface extends Remote {
     public void cambiarClaveUsuario(String nick, String text) throws java.rmi.RemoteException;
 
     public void darBajaUsuario(String text) throws java.rmi.RemoteException;
-
+    
+    public void actualizarAmigos() throws java.rmi.RemoteException;
 }

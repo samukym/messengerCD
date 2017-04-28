@@ -19,4 +19,6 @@ public interface ClienteInterface extends Remote{
 
     public void mostrarNotificacion(String nombre) throws RemoteException;
     
+    public void actualizarListAmigos() throws RemoteException;
+    
 }

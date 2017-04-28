@@ -19,13 +19,13 @@ public class VLogin extends javax.swing.JFrame {
     /**
      * Creates new form VLogin
      */
-    private ClienteInterface callbackObj;
+    private ClienteImpl callbackObj;
     private ServerInterface h;
     
     public VLogin() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.  
     }
-    public VLogin(ClienteInterface callbackObj,ServerInterface h) {
+    public VLogin(ClienteImpl callbackObj,ServerInterface h) {
         this.callbackObj = callbackObj;
         this.h = h;
         initComponents();   
@@ -164,12 +164,14 @@ public class VLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ClienteImpl c = null;
         try {
-            if(h.login(user.getText(),pass.getText(),callbackObj)){ 
-                VPrincipal v = new VPrincipal(h,user.getText(),callbackObj);
+            if(h.login(user.getText(),pass.getText(),(ClienteInterface) callbackObj)){ 
+                VPrincipal v = new VPrincipal(h,user.getText(),(ClienteInterface)callbackObj);
+                callbackObj.setVprincipal(v);
                 v.setVisible(true);
                 v.setLocationRelativeTo(null);
                 this.setVisible(false);
                 this.dispose();
+                h.actualizarAmigos();
             }
             else{
                 this.error.setVisible(true);
