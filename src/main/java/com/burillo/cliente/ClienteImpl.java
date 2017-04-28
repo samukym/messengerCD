@@ -40,8 +40,8 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     }    
 
     @Override
-    public void mostrarNotificacion(String nombre,String nombre2) throws RemoteException {
-        VAvisoConexion v = new VAvisoConexion(nombre,nombre2);
+    public void mostrarNotificacion(String nombre) throws RemoteException {
+        VAvisoConexion v = new VAvisoConexion(nombre);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
