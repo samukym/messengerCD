@@ -162,7 +162,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         if (tipo) {
             if (tinicial < amigos.size()) {
                 for (int i = tinicial; i < amigos.size(); i++) {
-                    c.mostrarNotificacion(amigos.get(i), nombre);
+                    c.mostrarNotificacion(amigos.get(i));
                     System.out.println(amigos.get(i));
                 }
             }
@@ -211,6 +211,41 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             String usuario2 = getNick(callbackObj);
             Statement ps = cn.createStatement();
             ps.executeUpdate("update amigos set peticionPendiente = false where amigo1 like '"+usuario1+"' and amigo2 like '"+usuario2+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public String getClaveUsuario(String nick) throws RemoteException {
+        String clave="";
+        try {  
+            Statement ps = cn.createStatement();
+            ResultSet rs = ps.executeQuery("select pass from usuarios where nick like '"+nick+"'");
+            while(rs.next()){
+                clave = rs.getString(1);
+                        }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clave;
+    }
+
+    @Override
+    public void cambiarClaveUsuario(String nick, String text) throws RemoteException {
+        try {
+            Statement ps = cn.createStatement();
+            ps.executeUpdate("update usuarios set pass = '"+text+"' where nick like '"+nick+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void darBajaUsuario(String text) throws RemoteException {
+        try {
+            Statement ps = cn.createStatement();
+            ps.executeUpdate("delete from usuarios where nick like '"+text+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

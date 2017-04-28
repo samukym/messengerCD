@@ -43,4 +43,10 @@ public interface ServerInterface extends Remote {
 
     public void aceptarAmigo(String toString, ClienteInterface callbackObj) throws java.rmi.RemoteException;
 
+    public String getClaveUsuario(String nick) throws java.rmi.RemoteException;
+
+    public void cambiarClaveUsuario(String nick, String text) throws java.rmi.RemoteException;
+
+    public void darBajaUsuario(String text) throws java.rmi.RemoteException;
+
 }
