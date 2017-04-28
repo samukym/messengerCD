@@ -49,11 +49,11 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     public void mostrarMsg(String nickOrigen, String nickDest, String msg) {
         VChat chat = ventanasChat.get(nickDest);
         if(chat==null){
-            chat = new VChat(h, nickOrigen, nickDest);
+            chat = new VChat(h, nickDest, nickOrigen);
             ventanasChat.put(nickDest, chat);
         }
         chat.setVisible(true);
-        chat.añadirLinea(msg);
+        chat.añadirLinea(nickDest, msg);
     }    
 
     @Override

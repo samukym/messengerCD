@@ -138,11 +138,11 @@ public class VChat extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(VChat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        panel.setText("");
+        texto.setText("");
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    public void añadirLinea(String msg){
-        panel.append("\n   "+msg);
+    public void añadirLinea(String nickDest,String msg){
+        panel.append("\n"+nickDest+": "+msg);
     }
     /**
      * @param args the command line arguments
