@@ -164,7 +164,7 @@ public class VLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ClienteImpl c = null;
         try {
-            if(h.login(user.getText(),pass.getText(),callbackObj)){    
+            if(h.login(user.getText(),pass.getText(),callbackObj)){ 
                 VPrincipal v = new VPrincipal(h,user.getText(),callbackObj);
                 v.setVisible(true);
                 v.setLocationRelativeTo(null);

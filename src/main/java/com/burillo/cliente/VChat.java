@@ -5,6 +5,11 @@
  */
 package com.burillo.cliente;
 
+import com.samuel.servidor.ServerInterface;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author iburillo
@@ -15,15 +20,21 @@ public class VChat extends javax.swing.JFrame {
      * Creates new form VChat
      */
     String nickOrigen;
+    ServerInterface h;
+    String nickDest;
     public VChat() {
         initComponents();
     }
 
-    VChat(String msg) {
+    VChat(ServerInterface h, String nickDest, String nickOrigen) {
         initComponents();
         panel.setEditable(false);
-        this.nickOrigen = msg;
-        jLabel2.setText(nickOrigen);
+        //
+        this.nickOrigen = nickOrigen;
+        this.h = h;
+        this.nickDest = nickDest;
+        //
+        jLabel2.setText(nickDest);
     }
 
     /**
@@ -121,7 +132,13 @@ public class VChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        panel.append("\n"+nickOrigen+"dice: "+texto.getText());
+        panel.append("\n"+nickOrigen+": "+texto.getText());
+        try {
+            h.enviarMsg(h.getUsuario(nickDest), nickOrigen, nickDest, texto.getText());
+        } catch (RemoteException ex) {
+            Logger.getLogger(VChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        panel.setText("");
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     public void añadirLinea(String msg){

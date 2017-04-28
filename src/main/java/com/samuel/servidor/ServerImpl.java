@@ -5,7 +5,9 @@
  */
 package com.samuel.servidor;
 
+import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
+import com.burillo.cliente.VChat;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
@@ -60,8 +62,8 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
-    public void enviarMsg(ClienteInterface destino, String txtMsg) throws RemoteException {
-        destino.mostrarMsg(txtMsg);
+    public void enviarMsg(ClienteInterface destino, String nickOrigen, String nickDest, String txtMsg) throws RemoteException {
+        destino.mostrarMsg(nickOrigen, nickDest, txtMsg);
     }
 
     @Override

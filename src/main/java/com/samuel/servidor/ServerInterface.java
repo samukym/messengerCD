@@ -7,6 +7,7 @@ package com.samuel.servidor;
 
 import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
+import com.burillo.cliente.VChat;
 import java.rmi.Remote;
 import java.util.ArrayList;
 import javax.swing.JPasswordField;
@@ -22,7 +23,7 @@ public interface ServerInterface extends Remote {
 
     public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
 
-    public void enviarMsg(ClienteInterface destino, String txtMsg) throws java.rmi.RemoteException;
+    public void enviarMsg(ClienteInterface destino,String nickOrigen, String nickDest, String txtMsg) throws java.rmi.RemoteException;
 
     public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
 

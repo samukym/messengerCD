@@ -28,7 +28,6 @@ public class VPrincipal extends javax.swing.JFrame {
      DefaultListModel df;
     
     public VPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
     }
 
@@ -250,9 +249,13 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        VChat vChat = new VChat("burillo");
-        System.out.println(listaAmigos.getSelectedValue());
+
+        VChat vChat;
+        vChat = new VChat(h, "burillo", nombre);
+        ClienteImpl c = (ClienteImpl) callbackObj;
+        c.addVentanaChat("burillo", vChat);
         vChat.setVisible(true);
+        
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

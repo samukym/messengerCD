@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public interface ClienteInterface extends Remote{
     
-    public void mostrarMsg(String msg) throws RemoteException;
+    public void mostrarMsg(String nickOrigen, String nickDest, String msg) throws RemoteException;
 
     public void mostrarNotificacion(String nombre,String nombre2) throws RemoteException;
     

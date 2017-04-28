@@ -5,38 +5,55 @@
  */
 package com.burillo.cliente;
 
+import com.samuel.servidor.ServerInterface;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author iburillo
  */
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface{
-     
-     public ClienteImpl(ArrayList<ClienteInterface> amigos) throws RemoteException {
+     HashMap<String, VChat> ventanasChat;
+     ServerInterface h;
+     public ClienteImpl(ArrayList<ClienteInterface> amigos, ServerInterface h) throws RemoteException {
         super();
+        this.h = h;
         if(amigos!=null){
         for(ClienteInterface u : amigos){
             amigos.add(u);
         }
+        ventanasChat = new HashMap<>();
         }
     }
-    public ClienteImpl() throws RemoteException{
+    public ClienteImpl(ServerInterface h) throws RemoteException{
         super();
+        this.h = h;
+        ventanasChat = new HashMap<>();
+    }
+
+
+    public void addVentanaChat(String nick, VChat ventanaC){
+        this.ventanasChat.put(nick, ventanaC);
+    }
+    public VChat getVentanaChat(String nick){
+        return this.ventanasChat.get(nick);
     }
 
     @Override
-    public void mostrarMsg(String msg) {
-        
-        VChat chat = new VChat(msg);
+    public void mostrarMsg(String nickOrigen, String nickDest, String msg) {
+        VChat chat = ventanasChat.get(nickDest);
+        if(chat==null){
+            chat = new VChat(h, nickOrigen, nickDest);
+            ventanasChat.put(nickDest, chat);
+        }
         chat.setVisible(true);
-        chat.setLocationRelativeTo(null);
-        
+        chat.añadirLinea(msg);
     }    
 
     @Override
