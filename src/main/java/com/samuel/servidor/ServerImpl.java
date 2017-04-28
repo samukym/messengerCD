@@ -87,29 +87,29 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public ArrayList<String> buscaAmigos(String nickname) throws RemoteException {
         ArrayList<String> resultado = new ArrayList();
-        if(!nickname.equals("")){
-        try {           
-            Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '%"+nickname+"%'");
-            while(rs.next()){
-               resultado.add(rs.getString(1));
+        if (!nickname.equals("")) {
+            try {
+                Statement ps = cn.createStatement();
+                ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '%" + nickname + "%'");
+                while (rs.next()) {
+                    resultado.add(rs.getString(1));
+                }
+                return resultado;
+            } catch (SQLException ex) {
+                Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return resultado;
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
         }
         return resultado;
     }
 
     @Override
     public void enviarPeticionAmistad(String destino, String origen) throws RemoteException {
-                try {
-                    Statement ps = cn.createStatement();
-                    ps.executeUpdate("insert into amigos values('"+origen+"','"+destino+"',true)");
-                } catch (SQLException ex) {
-                    Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        try {
+            Statement ps = cn.createStatement();
+            ps.executeUpdate("insert into amigos values('" + origen + "','" + destino + "',true)");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -142,7 +142,10 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public ArrayList<String> getAmigosConectados(boolean tipo, String nombre, ArrayList<String> usuarios, ClienteInterface c) throws RemoteException {
         ArrayList<String> amigos = new ArrayList();
-        int tinicial = usuarios.size();
+        int tinicial=0;
+        if (tipo) {
+            tinicial = usuarios.size();
+        }
         try {
             Statement ps = cn.createStatement();
             ResultSet rs = ps.executeQuery("Select amigo1,amigo2 from amigos where (amigo1 like '" + nombre + "'"
@@ -192,13 +195,13 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     public ArrayList<String> getListaPeticiones(ClienteInterface callbackObj) throws RemoteException {
         String usuario = getNick(callbackObj);
         ArrayList<String> resultado = new ArrayList();
-        try {        
+        try {
             Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("select amigo1 from amigos where amigo2 like '"+usuario+"' and peticionPendiente = 1");
-            while(rs.next()){
+            ResultSet rs = ps.executeQuery("select amigo1 from amigos where amigo2 like '" + usuario + "' and peticionPendiente = 1");
+            while (rs.next()) {
                 resultado.add(rs.getString(1));
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,7 +213,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         try {
             String usuario2 = getNick(callbackObj);
             Statement ps = cn.createStatement();
-            ps.executeUpdate("update amigos set peticionPendiente = false where amigo1 like '"+usuario1+"' and amigo2 like '"+usuario2+"'");
+            ps.executeUpdate("update amigos set peticionPendiente = false where amigo1 like '" + usuario1 + "' and amigo2 like '" + usuario2 + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -218,13 +221,13 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public String getClaveUsuario(String nick) throws RemoteException {
-        String clave="";
-        try {  
+        String clave = "";
+        try {
             Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("select pass from usuarios where nick like '"+nick+"'");
-            while(rs.next()){
+            ResultSet rs = ps.executeQuery("select pass from usuarios where nick like '" + nick + "'");
+            while (rs.next()) {
                 clave = rs.getString(1);
-                        }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -235,7 +238,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     public void cambiarClaveUsuario(String nick, String text) throws RemoteException {
         try {
             Statement ps = cn.createStatement();
-            ps.executeUpdate("update usuarios set pass = '"+text+"' where nick like '"+nick+"'");
+            ps.executeUpdate("update usuarios set pass = '" + text + "' where nick like '" + nick + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -245,7 +248,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     public void darBajaUsuario(String text) throws RemoteException {
         try {
             Statement ps = cn.createStatement();
-            ps.executeUpdate("delete from usuarios where nick like '"+text+"'");
+            ps.executeUpdate("delete from usuarios where nick like '" + text + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

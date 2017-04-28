@@ -22,6 +22,10 @@ public class VAvisoConexion extends javax.swing.JFrame {
         initComponents();
         this.name.setText(nombre);
     }
+    
+    public void setTitle(String titulo){
+        jLabel11.setText(titulo);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
