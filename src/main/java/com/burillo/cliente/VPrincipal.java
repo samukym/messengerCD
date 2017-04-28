@@ -25,7 +25,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private String nombre;
     private ClienteInterface callbackObj;
     private ArrayList<String> amigosConectados;
-     DefaultListModel df;
     
     public VPrincipal() {
         
@@ -41,11 +40,6 @@ public class VPrincipal extends javax.swing.JFrame {
         amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);       
         Thread actualizar = new HiloActualizar(listaAmigos, h, nombre, amigosConectados,this.callbackObj);
         actualizar.start();
-        df = new DefaultListModel();
-        for(String a : amigosConectados){
-            df.addElement(a);
-        }
-        listaAmigos.setModel(df);
     }
 
     /**
@@ -233,10 +227,12 @@ public class VPrincipal extends javax.swing.JFrame {
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(43, Short.MAX_VALUE))))
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,9 +284,9 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
         VChat vChat;
-        vChat = new VChat(h, "burillo", nombre);
+        vChat = new VChat(h, listaAmigos.getSelectedValue(), nombre);
         ClienteImpl c = (ClienteImpl) callbackObj;
-        c.addVentanaChat("burillo", vChat);
+        c.addVentanaChat(listaAmigos.getSelectedValue(), vChat);
         vChat.setVisible(true);
         
     }//GEN-LAST:event_jToggleButton1ActionPerformed
