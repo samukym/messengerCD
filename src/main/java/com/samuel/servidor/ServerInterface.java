@@ -50,4 +50,6 @@ public interface ServerInterface extends Remote {
     public void darBajaUsuario(String text) throws java.rmi.RemoteException;
     
     public void actualizarAmigos() throws java.rmi.RemoteException;
+
+    public void rechazarPeticion(String selectedValue, ClienteInterface callbackObj) throws java.rmi.RemoteException;
 }
