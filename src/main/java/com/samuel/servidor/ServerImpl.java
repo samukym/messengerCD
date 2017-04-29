@@ -248,6 +248,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     public void darBajaUsuario(String text) throws RemoteException {
         try {
             Statement ps = cn.createStatement();
+            ps.executeUpdate("delete from amigos where amigo1 like '"+text+"' or amigo2 like '"+text+"'");
             ps.executeUpdate("delete from usuarios where nick like '" + text + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);

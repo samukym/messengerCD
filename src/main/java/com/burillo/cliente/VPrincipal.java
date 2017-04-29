@@ -290,9 +290,9 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
         VChat vChat;
-        vChat = new VChat(h, "burillo", nombre);
+        vChat = new VChat(h,listaAmigos.getSelectedValue(), nombre);
         ClienteImpl c = (ClienteImpl) callbackObj;
-        c.addVentanaChat("burillo", vChat);
+        c.addVentanaChat(listaAmigos.getSelectedValue(), vChat);
         vChat.setVisible(true);
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
