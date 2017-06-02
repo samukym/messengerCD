@@ -125,6 +125,7 @@ public class VPeticion extends javax.swing.JFrame {
             h.aceptarAmigo(this.listaPeticiones.getSelectedValue(),this.callbackObj);
             df.remove(listaPeticiones.getSelectedIndex());
             listaPeticiones.setModel(df);
+            h.actualizarAmigos();
         } catch (RemoteException ex) {
             Logger.getLogger(VPeticion.class.getName()).log(Level.SEVERE, null, ex);
         }

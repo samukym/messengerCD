@@ -43,8 +43,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         this.vprincipal = vprincipal;
     }
     
-    
-
 
     public void addVentanaChat(String nick, VChat ventanaC){
         this.ventanasChat.put(nick, ventanaC);
