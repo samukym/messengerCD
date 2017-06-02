@@ -118,6 +118,7 @@ public class VConfirmacion extends javax.swing.JFrame {
             this.h.darBajaUsuario(this.jLabel3.getText());
             this.v.dispose();
             this.dispose();
+            this.h.actualizarAmigos();
             System.exit(0);
         } catch (RemoteException ex) {
             Logger.getLogger(VConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
