@@ -23,9 +23,7 @@ public interface ServerInterface extends Remote {
 
     public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
 
-    public void enviarMsg(ClienteInterface destino,String nickOrigen, String nickDest, String txtMsg) throws java.rmi.RemoteException;
-
-    public ArrayList<String> buscaAmigos(String nickname) throws java.rmi.RemoteException;
+    public ArrayList<String> buscaAmigos(String nickname,String nick2) throws java.rmi.RemoteException;
 
     public boolean login(String nombre, String pass, ClienteInterface user) throws java.rmi.RemoteException;
 
@@ -37,6 +35,8 @@ public interface ServerInterface extends Remote {
 
     public ArrayList<String> getAmigosConectados(boolean tipo, String nombre, ArrayList<String> usuarios, ClienteInterface c) throws java.rmi.RemoteException;
 
+    public ArrayList<String> getAmigosDesconectados(String nombre) throws java.rmi.RemoteException;
+    
     public boolean nuevoUsuario(String nick, String c1) throws java.rmi.RemoteException;
 
     public ArrayList<String> getListaPeticiones(ClienteInterface callbackObj) throws java.rmi.RemoteException;
@@ -50,6 +50,7 @@ public interface ServerInterface extends Remote {
     public void darBajaUsuario(String text) throws java.rmi.RemoteException;
     
     public void actualizarAmigos() throws java.rmi.RemoteException;
-
+        
     public void rechazarPeticion(String selectedValue, ClienteInterface callbackObj) throws java.rmi.RemoteException;
+
 }

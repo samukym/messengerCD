@@ -37,7 +37,6 @@ public class VChat extends javax.swing.JFrame {
         this.nickDest = nickDest;
         //
         jLabel2.setText(nickDest);
-        this.setTitle(nickDest);
     }
 
     /**
@@ -158,11 +157,11 @@ public class VChat extends javax.swing.JFrame {
         try {
             ArrayList<String> amigosC = h.getAmigosConectados(false, nickOrigen, null, null);
             if (amigosC.contains(nickDest)) {
-                h.enviarMsg(h.getUsuario(nickDest), nickOrigen, nickDest, texto.getText());
+                h.getUsuario(nickDest).mostrarMsg(nickOrigen, nickDest,this, texto.getText());
                 panel.append("\n" + "eu: " + texto.getText());
                 texto.setText("");
             } else {
-                VAvisoConexion vAviso = new VAvisoConexion("");
+                VAvisoConexion vAviso = new VAvisoConexion("",false);
                 vAviso.setTitle(nickDest + " ya no está conectado");
                 vAviso.setVisible(true);
             }

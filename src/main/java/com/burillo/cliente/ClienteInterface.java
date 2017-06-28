@@ -15,10 +15,19 @@ import java.util.ArrayList;
  */
 public interface ClienteInterface extends Remote{
     
-    public void mostrarMsg(String nickOrigen, String nickDest, String msg) throws RemoteException;
+    public void mostrarMsg(String nickOrigen, String nickDest, VChat cDest, String msg) throws RemoteException;
 
     public void mostrarNotificacion(String nombre) throws RemoteException;
     
     public void actualizarListAmigos() throws RemoteException;
+    
+    public void actualizarListAmigosDesc() throws RemoteException;
+    
+    public VChat getVentanaChat(String nick) throws RemoteException;
+    
+    public void addVentanaChat(String nick, VChat ventanaC) throws RemoteException;
+
+    public void anadirPeticion() throws RemoteException;
+    
     
 }

@@ -5,6 +5,9 @@
  */
 package com.burillo.cliente;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author iburillo
@@ -18,8 +21,11 @@ public class VAvisoConexion extends javax.swing.JFrame {
         initComponents();
     }
 
-    VAvisoConexion(String nombre) {
+    VAvisoConexion(String nombre,boolean peticion) {
         initComponents();
+        if(peticion){
+            this.jLabel11.setText("Nueva petición de amistad de");
+        }
         this.name.setText(nombre);
     }
     
