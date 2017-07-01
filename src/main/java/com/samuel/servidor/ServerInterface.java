@@ -5,13 +5,9 @@
  */
 package com.samuel.servidor;
 
-import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
-import com.burillo.cliente.VChat;
 import java.rmi.Remote;
 import java.util.ArrayList;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
