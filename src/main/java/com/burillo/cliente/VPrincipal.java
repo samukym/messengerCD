@@ -43,7 +43,7 @@ public class VPrincipal extends javax.swing.JFrame {
         amigosDesconectadosL = new ArrayList();
         actualizarAmigosDesconectados();
         amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);
-        
+
     }
 
     public void setListaAmigos(JList<String> listaAmigos) {
@@ -76,9 +76,10 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         buscador = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        resultado = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaBusqueda = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -123,7 +124,7 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jButton6);
-        jButton6.setBounds(12, 232, 160, 29);
+        jButton6.setBounds(12, 232, 160, 28);
 
         amigosDesconectados.setEnabled(false);
         jScrollPane2.setViewportView(amigosDesconectados);
@@ -133,7 +134,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jLabel6.setText("Amigos conectados");
         jPanel4.add(jLabel6);
-        jLabel6.setBounds(20, 20, 160, 17);
+        jLabel6.setBounds(20, 20, 160, 16);
 
         jLabel7.setText("Amigos desconectados");
         jPanel4.add(jLabel7);
@@ -152,12 +153,6 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Introduce un Nickname   ");
 
-        resultado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resultadoActionPerformed(evt);
-            }
-        });
-
         jButton7.setText("Enviar peticion ");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,37 +162,45 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Resultado de búsqueda    ");
 
+        jScrollPane4.setViewportView(listaBusqueda);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton2)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel9))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jButton7))
         );
 
         jTabbedPane1.addTab("Buscar amigos", jPanel1);
@@ -362,32 +365,30 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
-            h.enviarPeticionAmistad(resultado.getSelectedItem().toString(), this.nombre);
+            h.enviarPeticionAmistad(listaBusqueda.getSelectedValue(), this.nombre);
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resultadoActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.resultado.removeAllItems();
+
+        DefaultListModel modelo = new DefaultListModel();
         ArrayList<String> aux = new ArrayList();
         try {
-            aux = h.buscaAmigos(buscador.getText(),this.nombre);
+            aux = h.buscaAmigos(buscador.getText(), this.nombre);
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (String x : aux) {
-            resultado.addItem(x);
+            modelo.addElement(x);
         }
+        this.listaBusqueda.setModel(modelo);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         VChat vChat;
-        vChat = new VChat(h,listaAmigos.getSelectedValue(), nombre);
+        vChat = new VChat(h, listaAmigos.getSelectedValue(), nombre);
         ClienteImpl c = (ClienteImpl) callbackObj;
         c.addVentanaChat(listaAmigos.getSelectedValue(), vChat);
         vChat.setVisible(true);
@@ -395,7 +396,10 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
-            h.aceptarAmigo(this.pendientes.getSelectedValue(),this.callbackObj);
+            h.aceptarAmigo(this.pendientes.getSelectedValue(), this.callbackObj);
+            h.actualizarAmigos();
+            h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigosDesc();
+            h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigos();
             anadirPeticion();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -404,7 +408,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
-            h.rechazarPeticion(this.pendientes.getSelectedValue(),this.callbackObj);
+            h.rechazarPeticion(this.pendientes.getSelectedValue(), this.callbackObj);
             anadirPeticion();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,10 +478,11 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JList<String> listaAmigos;
+    private javax.swing.JList<String> listaBusqueda;
     private javax.swing.JList<String> pendientes;
-    private javax.swing.JComboBox<String> resultado;
     // End of variables declaration//GEN-END:variables
 
     void actualizarAmigos() throws RemoteException {
@@ -490,7 +495,7 @@ public class VPrincipal extends javax.swing.JFrame {
             listaAmigos.setModel(modelo);
         }
     }
-    
+
     void actualizarAmigosDesconectados() throws RemoteException {
         amigosDesconectadosL = h.getAmigosDesconectados(nombre);
         if (amigosDesconectadosL != null) {
@@ -506,8 +511,8 @@ public class VPrincipal extends javax.swing.JFrame {
         DefaultListModel modelo = new DefaultListModel();
         try {
             ArrayList<String> aux = h.getListaPeticiones(callbackObj);
-            if(aux!=null){
-                for(String x : aux){
+            if (aux != null) {
+                for (String x : aux) {
                     modelo.addElement(x);
                 }
             }

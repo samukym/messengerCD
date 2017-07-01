@@ -135,7 +135,10 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         try {
             Statement ps = cn.createStatement();
             ps.executeUpdate("insert into amigos values('" + origen + "','" + destino + "',true)");
+            if(getUsuario(destino)!=null){
             getUsuario(destino).anadirPeticion();
+            getUsuario(destino).mostrarNotificacionPeticion();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,7 +192,6 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             if (tinicial < amigos.size()) {
                 for (int i = tinicial; i < amigos.size(); i++) {
                     c.mostrarNotificacion(amigos.get(i));
-                    System.out.println(amigos.get(i));
                 }
             }
         }

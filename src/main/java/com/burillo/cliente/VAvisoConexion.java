@@ -21,12 +21,15 @@ public class VAvisoConexion extends javax.swing.JFrame {
         initComponents();
     }
 
-    VAvisoConexion(String nombre,boolean peticion) {
+    public VAvisoConexion(String nombre,boolean peticion) {
         initComponents();
         if(peticion){
-            this.jLabel11.setText("Nueva petición de amistad de");
+            this.jLabel11.setText("Nueva petición");
+            this.name.setText("de amistad");
         }
+        else{
         this.name.setText(nombre);
+        }
     }
     
     public void setTitle(String titulo){
@@ -69,20 +72,21 @@ public class VAvisoConexion extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel11))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(name))))
+                        .addContainerGap()
+                        .addComponent(name))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(13, 13, 13)
                 .addComponent(jButton6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

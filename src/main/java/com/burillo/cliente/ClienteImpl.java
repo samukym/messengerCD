@@ -22,9 +22,9 @@ import java.util.logging.Logger;
  */
 public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface {
 
-    HashMap<String, VChat> ventanasChat;
-    ServerInterface h;
-    VPrincipal vprincipal;
+    private HashMap<String, VChat> ventanasChat;
+    private ServerInterface h;
+    private VPrincipal vprincipal;
 
     public ClienteImpl(ArrayList<ClienteInterface> amigos, ServerInterface h) throws RemoteException {
         super();
@@ -58,13 +58,11 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
 
     @Override
     public void mostrarMsg(String nickOrigen, String nickDest, VChat cDest, String msg) {
-       
         VChat chat = ventanasChat.get(nickDest);     
         if (chat == null) {
             chat = new VChat(h, nickOrigen, nickDest);
             ventanasChat.put(nickDest, chat);   
-        }
-        
+        }       
         chat.setVisible(true);
         chat.añadirLinea(nickOrigen, msg);
     }
@@ -72,6 +70,18 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     @Override
     public void mostrarNotificacion(String nombre){
         VAvisoConexion v = new VAvisoConexion(nombre,false);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() - v.getWidth();
+        int y = (int) rect.getMaxY() - v.getHeight();
+        v.setLocation(x, y);
+        v.setVisible(true);
+    }
+    
+    @Override
+     public void mostrarNotificacionPeticion(){
+        VAvisoConexion v = new VAvisoConexion("",true);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();

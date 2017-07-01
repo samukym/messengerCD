@@ -31,11 +31,11 @@ public class VChat extends javax.swing.JFrame {
     VChat(ServerInterface h, String nickDest, String nickOrigen) {
         initComponents();
         panel.setEditable(false);
-        //
+        
         this.nickOrigen = nickOrigen;
         this.h = h;
         this.nickDest = nickDest;
-        //
+     
         jLabel2.setText(nickDest);
     }
 
