@@ -52,6 +52,7 @@ public class VAviso extends javax.swing.JFrame {
         nick = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(121, 146, 155));
 
         jLabel11.setText("SE HA CONECTADO: ");
 

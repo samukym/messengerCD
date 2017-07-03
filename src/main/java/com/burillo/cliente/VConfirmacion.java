@@ -48,6 +48,7 @@ public class VConfirmacion extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(121, 146, 155));
 
         jLabel1.setText("Estas seguro de que quieres dar de baja ");
 

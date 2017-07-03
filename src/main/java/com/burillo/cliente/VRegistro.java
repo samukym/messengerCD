@@ -51,6 +51,7 @@ public class VRegistro extends javax.swing.JFrame {
         error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(121, 146, 155));
 
         jLabel1.setText("Nickname");
 
@@ -72,7 +73,7 @@ public class VRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 3, 20)); // NOI18N
         jLabel4.setText("REGISTRO");
 
         error.setForeground(new java.awt.Color(255, 0, 0));
@@ -90,8 +91,10 @@ public class VRegistro extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(nick, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)))
+                                    .addComponent(nick, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -114,7 +117,7 @@ public class VRegistro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nick, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -132,7 +135,7 @@ public class VRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,13 +148,12 @@ public class VRegistro extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(this.c1.getText().equals(this.c2.getText())){
             try {
-                boolean m = h.nuevoUsuario(nick.getText(),c1.getText());
-                if(m){
-                    this.error.setVisible(true);
-                    this.error.setText("El nickname está registrado");
+                if(h.nuevoUsuario(nick.getText(),c1.getText())){
+                    this.setVisible(false);               
                 }
                 else{
-                    this.setVisible(false);
+                    this.error.setVisible(true);
+                    this.error.setText("El nickname está registrado");
                 }
             } catch (RemoteException ex) {
                 Logger.getLogger(VRegistro.class.getName()).log(Level.SEVERE, null, ex);

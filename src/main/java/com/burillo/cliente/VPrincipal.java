@@ -106,7 +106,7 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 3, 20)); // NOI18N
         jLabel2.setText("MESSENGER");
 
         jLabel4.setText("jLabel4");
@@ -124,8 +124,10 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(amigosDesconectados);
 
+        jLabel6.setForeground(new java.awt.Color(254, 254, 254));
         jLabel6.setText("Amigos conectados");
 
+        jLabel7.setForeground(new java.awt.Color(254, 254, 254));
         jLabel7.setText("Amigos desconectados");
 
         jButton3.setText("Eliminar amigo");
@@ -187,6 +189,7 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(254, 254, 254));
         jLabel3.setText("Introduce un Nickname   ");
 
         jButton7.setText("Enviar peticion ");
@@ -196,6 +199,7 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setForeground(new java.awt.Color(254, 254, 254));
         jLabel9.setText("Resultado de búsqueda    ");
 
         jScrollPane4.setViewportView(listaBusqueda);
@@ -244,8 +248,10 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(121, 146, 155));
 
+        jLabel1.setForeground(new java.awt.Color(254, 254, 254));
         jLabel1.setText("Solicitudes");
 
+        jLabel8.setForeground(new java.awt.Color(254, 254, 254));
         jLabel8.setText("pendientes");
 
         jScrollPane3.setViewportView(pendientes);
@@ -352,14 +358,17 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addGap(194, 194, 194)
-                        .addComponent(jLabel2))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

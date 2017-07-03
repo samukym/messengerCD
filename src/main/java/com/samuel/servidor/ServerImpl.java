@@ -107,15 +107,20 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     @Override
     public boolean nuevoUsuario(String nick, String pass) throws RemoteException {
         try {
+            String aux = "";
             Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nick + "'"
+            ResultSet rs = ps.executeQuery("Select nick from usuarios where nick = '" + nick + "'"
                     + "and pass like '" + pass + "';");
-            while (rs.next()) {
-                return false;
+            while (rs.next()) {     
+                aux = rs.getString(1);
+                if(!"".equals(aux)){
+                    return false;
+                }
             }
             if (ps.executeUpdate("insert into usuarios values('" + nick + "','" + pass + "');") == 0) {
                 return true;
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
