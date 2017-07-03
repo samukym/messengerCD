@@ -7,7 +7,6 @@ package com.burillo.cliente;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /**
  *
@@ -25,7 +24,7 @@ public interface ClienteInterface extends Remote{
     
     public void actualizarListAmigosDesc() throws RemoteException;
     
-    public VChat getVentanaChat(String nick) throws RemoteException;
+    //public VChat getVentanaChat(String nick) throws RemoteException;
     
    // public void addVentanaChat(String nick, VChat ventanaC) throws RemoteException;
 

@@ -49,17 +49,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     
     public void addVentanaChat(String nick, VChat ventanaC) {
         this.ventanasChat.put(nick, ventanaC);
-        Iterator c = ventanasChat.entrySet().iterator();
-        System.out.println("NICKS");
-        while (c.hasNext()) {
-            Map.Entry pair = (Map.Entry) c.next();
-            System.out.println(pair.getKey().toString());
-        }
-    }
-
-    @Override
-    public VChat getVentanaChat(String nick) {
-        return this.ventanasChat.get(nick);
     }
 
     @Override
@@ -72,12 +61,6 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         }       
         chat.setVisible(true);
         chat.añadirLinea(nickOrigen, msg);
-        Iterator c = ventanasChat.entrySet().iterator();
-        System.out.println("NICS");
-        while (c.hasNext()) {
-            Map.Entry pair = (Map.Entry) c.next();
-            System.out.println(pair.getKey().toString());
-        }
     }
 
     @Override
