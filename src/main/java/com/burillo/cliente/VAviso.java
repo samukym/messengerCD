@@ -12,18 +12,19 @@ import java.util.logging.Logger;
  *
  * @author iburillo
  */
-public class VAvisoConexion extends javax.swing.JFrame {
+public class VAviso extends javax.swing.JFrame {
 
     /**
      * Creates new form VAvisoConexion
      */
-    public VAvisoConexion() {
+    public VAviso() {
         initComponents();
     }
 
-    public VAvisoConexion(String nombre,boolean peticion) {
+    public VAviso(String nick,String nombre,boolean tipo) {
         initComponents();
-        if(peticion){
+        this.nick.setText(nick);
+        if(tipo){
             this.jLabel11.setText("Nueva petición");
             this.name.setText("de amistad");
         }
@@ -48,6 +49,7 @@ public class VAvisoConexion extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        nick = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +63,8 @@ public class VAvisoConexion extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
+
+        nick.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,13 +80,18 @@ public class VAvisoConexion extends javax.swing.JFrame {
                         .addComponent(name))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(nick)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
+                .addComponent(nick)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(name)
@@ -115,20 +124,21 @@ public class VAvisoConexion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VAvisoConexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VAviso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VAvisoConexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VAviso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VAvisoConexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VAviso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VAvisoConexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VAviso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VAvisoConexion().setVisible(true);
+                new VAviso().setVisible(true);
             }
         });
     }
@@ -137,5 +147,6 @@ public class VAvisoConexion extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel name;
+    private javax.swing.JLabel nick;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,9 +24,9 @@ public interface ClienteInterface extends Remote{
     
     public void actualizarListAmigosDesc() throws RemoteException;
     
-    //public VChat getVentanaChat(String nick) throws RemoteException;
+    public void removeVentanaChat(String nick) throws RemoteException;
     
-   // public void addVentanaChat(String nick, VChat ventanaC) throws RemoteException;
+    public void addVentanaChat(String nick, VChat ventanaC) throws RemoteException;
 
     public void anadirPeticion() throws RemoteException;
     

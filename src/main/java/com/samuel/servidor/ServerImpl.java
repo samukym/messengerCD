@@ -223,6 +223,17 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Override
+    public void eliminarAmigo(String nombre1, String nombre2) throws RemoteException {
+          try {
+            Statement ps = cn.createStatement();
+            ps.executeUpdate("delete from amigos where (amigo1 like '" + nombre1 + "' and amigo2 like '" + nombre2 + "') or (amigo1 like '" + nombre2 + "' and amigo2 like '" + nombre1 + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }
 
     @Override
     public void rechazarPeticion(String usuario1, ClienteInterface callbackObj) throws RemoteException {
@@ -301,5 +312,7 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
 
 }

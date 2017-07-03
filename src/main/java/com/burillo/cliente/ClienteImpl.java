@@ -25,30 +25,31 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     private HashMap<String, VChat> ventanasChat;
     private ServerInterface h;
     private VPrincipal vprincipal;
-
-    public ClienteImpl(ArrayList<ClienteInterface> amigos, ServerInterface h) throws RemoteException {
-        super();
-        this.h = h;
-        if (amigos != null) {
-            for (ClienteInterface u : amigos) {
-                amigos.add(u);
-            }
-            ventanasChat = new HashMap<>();
-        }
-    }
+    private String nombre;
 
     public ClienteImpl(ServerInterface h) throws RemoteException {
         super();
         this.h = h;
+        this.nombre = "null";
         ventanasChat = new HashMap<>();
     }
 
+    public void setNombre(String nombre){
+           this.nombre = nombre; 
+    }
+    
     public void setVprincipal(VPrincipal vprincipal) {
         this.vprincipal = vprincipal;
     }
     
+    @Override
     public void addVentanaChat(String nick, VChat ventanaC) {
         this.ventanasChat.put(nick, ventanaC);
+    }
+    
+    @Override
+    public void removeVentanaChat(String nick){
+        this.ventanasChat.remove(nick);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
 
     @Override
     public void mostrarNotificacion(String nombre){
-        VAvisoConexion v = new VAvisoConexion(nombre,false);
+        VAviso v = new VAviso(this.nombre,nombre,false);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
@@ -77,7 +78,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     
     @Override
      public void mostrarNotificacionPeticion(){
-        VAvisoConexion v = new VAvisoConexion("",true);
+        VAviso v = new VAviso(this.nombre,"",true);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
