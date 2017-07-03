@@ -14,21 +14,31 @@ import java.rmi.RemoteException;
  */
 public interface ClienteInterface extends Remote{
     
-    public void mostrarMsg(String nickOrigen, String nickDest,String msg) throws RemoteException;
-
-    public void mostrarNotificacion(String nombre) throws RemoteException;
-    
-    public void mostrarNotificacionPeticion() throws RemoteException;
-    
-    public void actualizarListAmigos() throws RemoteException;
-    
-    public void actualizarListAmigosDesc() throws RemoteException;
-    
-    public void removeVentanaChat(String nick) throws RemoteException;
+    //Chat
+    public void enviarMensaje(String nickOrigen, String nickDest,String msg) throws RemoteException;
+    //Envía un mensaje a un amigo conectado 
     
     public void addVentanaChat(String nick, VChat ventanaC) throws RemoteException;
+    //Añade un chat con un amigo abierto a la lista 
+        
+    public void removeVentanaChat(String nick) throws RemoteException;
+    //Elimina de la lista un chat con un amigo 
+    
+    //Notificaciones
+    public void mostrarNotificacion(String nombre) throws RemoteException;
+    //Muestra la notificación de que un amigo se ha conectado
+    
+    public void mostrarNotificacionPeticion() throws RemoteException;
+    //Muestra la notificación de que hay una nueva petición de amistad
+    
+    //Listas
+    public void actualizarListAmigos() throws RemoteException;
+    //Actualiza la lista de amigos conectados en la ventana principal
+    
+    public void actualizarListAmigosDesc() throws RemoteException;
+    //Actualiza la lista de amigos desconectados en la ventana principal
 
     public void anadirPeticion() throws RemoteException;
-    
+    //Se añade una petición a la lista de peticiones en la ventana principal
     
 }

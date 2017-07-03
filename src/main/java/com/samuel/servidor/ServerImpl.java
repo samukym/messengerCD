@@ -104,7 +104,57 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         return false;
     }
 
-    //Gestión de amigos
+    @Override
+    public boolean nuevoUsuario(String nick, String pass) throws RemoteException {
+        try {
+            Statement ps = cn.createStatement();
+            ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nick + "'"
+                    + "and pass like '" + pass + "';");
+            while (rs.next()) {
+                return false;
+            }
+            if (ps.executeUpdate("insert into usuarios values('" + nick + "','" + pass + "');") == 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean cambiarClaveUsuario(String nick, String pass1, String pass2) throws RemoteException {
+        String clave = "";
+        try {
+            Statement ps1 = cn.createStatement();
+            ResultSet rs = ps1.executeQuery("select pass from usuarios where nick like '" + nick + "'");
+            while (rs.next()) {
+                clave = rs.getString(1);
+            }
+            if (clave.equals(pass1)) {
+                Statement ps = cn.createStatement();
+                ps.executeUpdate("update usuarios set pass = '" + pass2 + "' where nick like '" + nick + "'");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public void darBajaUsuario(String text) throws RemoteException {
+        try {
+            Statement ps = cn.createStatement();
+            ps.executeUpdate("delete from amigos where amigo1 like '" + text + "' or amigo2 like '" + text + "'");
+            ps.executeUpdate("delete from usuarios where nick like '" + text + "'");
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public ArrayList<String> buscaAmigos(String nickname, String nick2) throws RemoteException {
 
@@ -133,34 +183,13 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         try {
             Statement ps = cn.createStatement();
             ps.executeUpdate("insert into amigos values('" + origen + "','" + destino + "',true)");
-            if(getUsuario(destino)!=null){
-            getUsuario(destino).anadirPeticion();
-            getUsuario(destino).mostrarNotificacionPeticion();
+            if (getUsuario(destino) != null) {
+                getUsuario(destino).anadirPeticion();
+                getUsuario(destino).mostrarNotificacionPeticion();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public ArrayList<String> getAmigosDesconectados(String nombre) throws RemoteException {
-        ArrayList<String> amigos = new ArrayList();
-        try {
-            Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("Select amigo1,amigo2 from amigos where (amigo1 like '" + nombre + "'"
-                    + "or amigo2 like '" + nombre + "') and peticionPendiente = 0;");
-            while (rs.next()) {
-                if (!rs.getString(1).equals(nombre) && !clients.containsValue(rs.getString(1))) {
-                    amigos.add(rs.getString(1));
-                } else if (!rs.getString(2).equals(nombre) && !clients.containsValue(rs.getString(2))) {
-                    amigos.add(rs.getString(2));
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return amigos;
     }
 
     @Override
@@ -197,6 +226,27 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
     }
 
     @Override
+    public ArrayList<String> getAmigosDesconectados(String nombre) throws RemoteException {
+        ArrayList<String> amigos = new ArrayList();
+        try {
+            Statement ps = cn.createStatement();
+            ResultSet rs = ps.executeQuery("Select amigo1,amigo2 from amigos where (amigo1 like '" + nombre + "'"
+                    + "or amigo2 like '" + nombre + "') and peticionPendiente = 0;");
+            while (rs.next()) {
+                if (!rs.getString(1).equals(nombre) && !clients.containsValue(rs.getString(1))) {
+                    amigos.add(rs.getString(1));
+                } else if (!rs.getString(2).equals(nombre) && !clients.containsValue(rs.getString(2))) {
+                    amigos.add(rs.getString(2));
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return amigos;
+    }
+
+    @Override
     public ArrayList<String> getListaPeticiones(ClienteInterface callbackObj) throws RemoteException {
         String usuario = getNick(callbackObj);
         ArrayList<String> resultado = new ArrayList();
@@ -223,17 +273,6 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    @Override
-    public void eliminarAmigo(String nombre1, String nombre2) throws RemoteException {
-          try {
-            Statement ps = cn.createStatement();
-            ps.executeUpdate("delete from amigos where (amigo1 like '" + nombre1 + "' and amigo2 like '" + nombre2 + "') or (amigo1 like '" + nombre2 + "' and amigo2 like '" + nombre1 + "')");
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-          
-    }
 
     @Override
     public void rechazarPeticion(String usuario1, ClienteInterface callbackObj) throws RemoteException {
@@ -258,61 +297,15 @@ class ServerImpl extends UnicastRemoteObject implements ServerInterface {
         }
     }
 
-    //Gestion usuario
     @Override
-    public boolean nuevoUsuario(String nick, String pass) throws RemoteException {
+    public void eliminarAmigo(String nombre1, String nombre2) throws RemoteException {
         try {
             Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("Select nick from usuarios where nick like '" + nick + "'"
-                    + "and pass like '" + pass + "';");
-            while (rs.next()) {
-                return false;
-            }
-            if (ps.executeUpdate("insert into usuarios values('" + nick + "','" + pass + "');") == 0) {
-                return true;
-            }
+            ps.executeUpdate("delete from amigos where (amigo1 like '" + nombre1 + "' and amigo2 like '" + nombre2 + "') or (amigo1 like '" + nombre2 + "' and amigo2 like '" + nombre1 + "')");
         } catch (SQLException ex) {
             Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
-    }
 
-    @Override
-    public String getClaveUsuario(String nick) throws RemoteException {
-        String clave = "";
-        try {
-            Statement ps = cn.createStatement();
-            ResultSet rs = ps.executeQuery("select pass from usuarios where nick like '" + nick + "'");
-            while (rs.next()) {
-                clave = rs.getString(1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return clave;
     }
-
-    @Override
-    public void cambiarClaveUsuario(String nick, String text) throws RemoteException {
-        try {
-            Statement ps = cn.createStatement();
-            ps.executeUpdate("update usuarios set pass = '" + text + "' where nick like '" + nick + "'");
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void darBajaUsuario(String text) throws RemoteException {
-        try {
-            Statement ps = cn.createStatement();
-            ps.executeUpdate("delete from amigos where amigo1 like '" + text + "' or amigo2 like '" + text + "'");
-            ps.executeUpdate("delete from usuarios where nick like '" + text + "'");
-        } catch (SQLException ex) {
-            Logger.getLogger(ServerImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    
 
 }

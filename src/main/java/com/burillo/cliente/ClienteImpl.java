@@ -43,17 +43,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     }
     
     @Override
-    public void addVentanaChat(String nick, VChat ventanaC) {
-        this.ventanasChat.put(nick, ventanaC);
-    }
-    
-    @Override
-    public void removeVentanaChat(String nick){
-        this.ventanasChat.remove(nick);
-    }
-
-    @Override
-    public void mostrarMsg(String nickOrigen, String nickDest, String msg) {
+    public void enviarMensaje(String nickOrigen, String nickDest, String msg) {
         
         VChat chat = this.ventanasChat.get(nickDest);     
         if (chat == null) {
@@ -63,8 +53,18 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         chat.setVisible(true);
         chat.añadirLinea(nickOrigen, msg);
     }
-
+    
     @Override
+    public void addVentanaChat(String nick, VChat ventanaC) {
+        this.ventanasChat.put(nick, ventanaC);
+    }
+    
+    @Override
+    public void removeVentanaChat(String nick){
+        this.ventanasChat.remove(nick);
+    }
+
+  @Override
     public void mostrarNotificacion(String nombre){
         VAviso v = new VAviso(this.nombre,nombre,false);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

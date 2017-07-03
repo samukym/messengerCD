@@ -143,7 +143,7 @@ public class VChat extends javax.swing.JFrame {
         try {
             ArrayList<String> amigosC = h.getAmigosConectados(false, nickOrigen, null, null);
             if (amigosC.contains(nickDest)) {
-                h.getUsuario(nickDest).mostrarMsg(nickOrigen, nickDest, texto.getText());
+                h.getUsuario(nickDest).enviarMensaje(nickOrigen, nickDest, texto.getText());
                 panel.append("\n" + "YO: " + texto.getText());
                 texto.setText("");
             } else {

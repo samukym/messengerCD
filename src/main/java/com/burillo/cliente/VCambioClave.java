@@ -170,14 +170,14 @@ public class VCambioClave extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            if(this.clave.getText().equals(h.getClaveUsuario(this.nick))){
                 if(c1.getText().equals(c2.getText())){
-                        this.h.cambiarClaveUsuario(this.nick,this.c1.getText());
-                        this.dispose();                 
+                        if(this.h.cambiarClaveUsuario(this.nick,this.clave.getText(),this.c1.getText())){
+                        this.dispose();               
+                        } else this.jLabel6.setVisible(true);
                 }
                 else this.jLabel7.setVisible(true);
-            }
-            else this.jLabel6.setVisible(true);
+            
+           
         } catch (RemoteException ex) {
             Logger.getLogger(VCambioClave.class.getName()).log(Level.SEVERE, null, ex);
         }
