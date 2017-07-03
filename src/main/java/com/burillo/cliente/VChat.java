@@ -23,6 +23,7 @@ public class VChat extends javax.swing.JFrame {
     String nickOrigen;
     ServerInterface h;
     String nickDest;
+    ClienteImpl refDest;
 
     public VChat() {
         initComponents();
@@ -35,7 +36,7 @@ public class VChat extends javax.swing.JFrame {
         this.nickOrigen = nickOrigen;
         this.h = h;
         this.nickDest = nickDest;
-     
+        
         jLabel2.setText(nickDest);
     }
 
@@ -157,7 +158,7 @@ public class VChat extends javax.swing.JFrame {
         try {
             ArrayList<String> amigosC = h.getAmigosConectados(false, nickOrigen, null, null);
             if (amigosC.contains(nickDest)) {
-                h.getUsuario(nickDest).mostrarMsg(nickOrigen, nickDest,this, texto.getText());
+                h.getUsuario(nickDest).mostrarMsg(nickOrigen, nickDest, texto.getText());
                 panel.append("\n" + "eu: " + texto.getText());
                 texto.setText("");
             } else {

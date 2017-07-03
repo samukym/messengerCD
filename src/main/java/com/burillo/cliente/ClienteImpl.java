@@ -13,8 +13,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -46,9 +46,15 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     public void setVprincipal(VPrincipal vprincipal) {
         this.vprincipal = vprincipal;
     }
-
+    
     public void addVentanaChat(String nick, VChat ventanaC) {
         this.ventanasChat.put(nick, ventanaC);
+        Iterator c = ventanasChat.entrySet().iterator();
+        System.out.println("NICKS");
+        while (c.hasNext()) {
+            Map.Entry pair = (Map.Entry) c.next();
+            System.out.println(pair.getKey().toString());
+        }
     }
 
     @Override
@@ -57,14 +63,21 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     }
 
     @Override
-    public void mostrarMsg(String nickOrigen, String nickDest, VChat cDest, String msg) {
-        VChat chat = ventanasChat.get(nickDest);     
+    public void mostrarMsg(String nickOrigen, String nickDest, String msg) {
+        
+        VChat chat = this.ventanasChat.get(nickDest);     
         if (chat == null) {
             chat = new VChat(h, nickOrigen, nickDest);
-            ventanasChat.put(nickDest, chat);   
+            this.ventanasChat.put(nickDest, chat);   
         }       
         chat.setVisible(true);
         chat.añadirLinea(nickOrigen, msg);
+        Iterator c = ventanasChat.entrySet().iterator();
+        System.out.println("NICS");
+        while (c.hasNext()) {
+            Map.Entry pair = (Map.Entry) c.next();
+            System.out.println(pair.getKey().toString());
+        }
     }
 
     @Override

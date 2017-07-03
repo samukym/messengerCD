@@ -24,7 +24,7 @@ public class VPrincipal extends javax.swing.JFrame {
      */
     private ServerInterface h;
     private String nombre;
-    private ClienteInterface callbackObj;
+    private ClienteImpl cliente;
     private ArrayList<String> amigosConectados;
     private ArrayList<String> amigosDesconectadosL;
 
@@ -32,17 +32,17 @@ public class VPrincipal extends javax.swing.JFrame {
 
     }
 
-    VPrincipal(ServerInterface h, String nombre, ClienteInterface callbackObj) throws RemoteException {
+    VPrincipal(ServerInterface h, String nombre, ClienteImpl cliente) throws RemoteException {
         initComponents();
         this.h = h;
         this.nombre = nombre;
-        this.callbackObj = callbackObj;
+        this.cliente = cliente;
         this.jLabel4.setText(nombre);
         anadirPeticion();
         amigosConectados = new ArrayList();
         amigosDesconectadosL = new ArrayList();
         actualizarAmigosDesconectados();
-        amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.callbackObj);
+        amigosConectados = h.getAmigosConectados(false, nombre, amigosConectados, this.cliente);
 
     }
 
@@ -344,7 +344,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            h.unregisterForCallback(callbackObj);
+            h.unregisterForCallback(cliente);
             h.actualizarAmigos();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -389,14 +389,13 @@ public class VPrincipal extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         VChat vChat;
         vChat = new VChat(h, listaAmigos.getSelectedValue(), nombre);
-        ClienteImpl c = (ClienteImpl) callbackObj;
-        c.addVentanaChat(listaAmigos.getSelectedValue(), vChat);
+        this.cliente.addVentanaChat(nombre, vChat);
         vChat.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
-            h.aceptarAmigo(this.pendientes.getSelectedValue(), this.callbackObj);
+            h.aceptarAmigo(this.pendientes.getSelectedValue(), this.cliente);
             h.actualizarAmigos();
             h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigosDesc();
             h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigos();
@@ -408,7 +407,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         try {
-            h.rechazarPeticion(this.pendientes.getSelectedValue(), this.callbackObj);
+            h.rechazarPeticion(this.pendientes.getSelectedValue(), this.cliente);
             anadirPeticion();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -486,7 +485,7 @@ public class VPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void actualizarAmigos() throws RemoteException {
-        amigosConectados = h.getAmigosConectados(true, nombre, amigosConectados, this.callbackObj);
+        amigosConectados = h.getAmigosConectados(true, nombre, amigosConectados, this.cliente);
         if (amigosConectados != null) {
             DefaultListModel modelo = new DefaultListModel();
             for (int i = 0; i < amigosConectados.size(); i++) {
@@ -510,7 +509,7 @@ public class VPrincipal extends javax.swing.JFrame {
     void anadirPeticion() {
         DefaultListModel modelo = new DefaultListModel();
         try {
-            ArrayList<String> aux = h.getListaPeticiones(callbackObj);
+            ArrayList<String> aux = h.getListaPeticiones(cliente);
             if (aux != null) {
                 for (String x : aux) {
                     modelo.addElement(x);

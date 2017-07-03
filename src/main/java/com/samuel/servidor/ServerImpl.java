@@ -5,9 +5,7 @@
  */
 package com.samuel.servidor;
 
-import com.burillo.cliente.ClienteImpl;
 import com.burillo.cliente.ClienteInterface;
-import com.burillo.cliente.VChat;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;

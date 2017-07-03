@@ -169,7 +169,7 @@ public class VLogin extends javax.swing.JFrame {
         ClienteImpl c = null;
         try {
             if(h.login(user.getText(),pass.getText(),(ClienteInterface) callbackObj)){ 
-                VPrincipal v = new VPrincipal(h,user.getText(),(ClienteInterface)callbackObj);
+                VPrincipal v = new VPrincipal(h,user.getText(), callbackObj);
                 callbackObj.setVprincipal(v);
                 v.setVisible(true);
                 v.setLocationRelativeTo(null);
