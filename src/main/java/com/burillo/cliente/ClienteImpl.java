@@ -54,12 +54,10 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         chat.añadirLinea(nickOrigen, msg);
     }
     
-    @Override
     public void addVentanaChat(String nick, VChat ventanaC) {
         this.ventanasChat.put(nick, ventanaC);
     }
     
-    @Override
     public void removeVentanaChat(String nick){
         this.ventanasChat.remove(nick);
     }

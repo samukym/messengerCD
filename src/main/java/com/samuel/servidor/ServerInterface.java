@@ -20,12 +20,11 @@ public interface ServerInterface extends Remote {
     public void unregisterForCallback(ClienteInterface callbackClientObject) throws java.rmi.RemoteException;
 
     public ClienteInterface getUsuario(String toString) throws java.rmi.RemoteException;
-
     //Devuelve la instancia del cliente con ese nick
+    
     public String getNick(ClienteInterface call) throws java.rmi.RemoteException;
     //Devuelve el nick del cliente con esa instancia
 
-    //Gestión de usuarios
     public boolean login(String nombre, String pass, ClienteInterface user) throws java.rmi.RemoteException;
     //Comprueba en la BBDD si existe el usuario con esa contraseña
 

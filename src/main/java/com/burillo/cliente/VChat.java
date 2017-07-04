@@ -130,12 +130,7 @@ public class VChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            h.getUsuario(nickOrigen).removeVentanaChat(nickDest);
-            setVisible(false);
-        } catch (RemoteException ex) {
-            Logger.getLogger(VChat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
