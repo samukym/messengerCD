@@ -34,37 +34,33 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         ventanasChat = new HashMap<>();
     }
 
-    public void setNombre(String nombre){
-           this.nombre = nombre; 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    
+
     public void setVprincipal(VPrincipal vprincipal) {
         this.vprincipal = vprincipal;
     }
-    
+
     @Override
     public void enviarMensaje(String nickOrigen, String nickDest, String msg) {
-        
-        VChat chat = this.ventanasChat.get(nickDest);     
+
+        VChat chat = this.ventanasChat.get(nickDest);
         if (chat == null) {
             chat = new VChat(h, nickOrigen, nickDest);
-            this.ventanasChat.put(nickDest, chat);   
-        }       
+            this.ventanasChat.put(nickDest, chat);
+        }
         chat.setVisible(true);
         chat.añadirLinea(nickOrigen, msg);
     }
-    
+
     public void addVentanaChat(String nick, VChat ventanaC) {
         this.ventanasChat.put(nick, ventanaC);
     }
-    
-    public void removeVentanaChat(String nick){
-        this.ventanasChat.remove(nick);
-    }
 
-  @Override
-    public void mostrarNotificacion(String nombre){
-        VAviso v = new VAviso(this.nombre,nombre,false);
+    @Override
+    public void mostrarNotificacion(String nombre) {
+        VAviso v = new VAviso(this.nombre, nombre, false);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
@@ -73,10 +69,10 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
         v.setLocation(x, y);
         v.setVisible(true);
     }
-    
+
     @Override
-     public void mostrarNotificacionPeticion(){
-        VAviso v = new VAviso(this.nombre,"",true);
+    public void mostrarNotificacionPeticion() {
+        VAviso v = new VAviso(this.nombre, "", true);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
@@ -90,7 +86,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ClienteInterface
     public void actualizarListAmigos() throws RemoteException {
         vprincipal.actualizarAmigos();
     }
-    
+
     @Override
     public void actualizarListAmigosDesc() throws RemoteException {
         vprincipal.actualizarAmigosDesconectados();

@@ -444,8 +444,6 @@ public class VPrincipal extends javax.swing.JFrame {
         try {
             h.aceptarAmigo(this.pendientes.getSelectedValue(), this.cliente);
             h.actualizarAmigos();
-            h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigosDesc();
-            h.getUsuario(this.pendientes.getSelectedValue()).actualizarListAmigos();
             anadirPeticion();
         } catch (RemoteException ex) {
             Logger.getLogger(VPrincipal.class.getName()).log(Level.SEVERE, null, ex);
